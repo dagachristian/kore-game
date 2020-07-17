@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart' show WidgetsFlutterBinding;
 import './app.dart' show App;
 import './config/index.dart' show config;
 import './logger.dart' show initLogger;
+import './config/flame.dart' show flame;
 import './router.dart' show fluroRouter;
 
 void main() async {
@@ -14,6 +15,7 @@ void main() async {
   initLogger();
   fluroRouter.configureRoutes();
   await SystemChrome.setEnabledSystemUIOverlays([]);
+  await flame.init();
 
   runApp(
     EasyLocalization(

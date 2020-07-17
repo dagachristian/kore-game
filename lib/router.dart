@@ -4,6 +4,7 @@ import 'package:flutter/material.dart' show BuildContext, GlobalKey, NavigatorSt
 import './logger.dart' show logger;
 
 import './screens/home/index.dart' show HomeScreen;
+import './screens/game/index.dart' show GameScreen;
 
 /// Navigate to page using predefines `routes`.
 /// 
@@ -72,6 +73,10 @@ class _FluroRouter extends Fluro.Router {
     '/': _RouteDef('/', (BuildContext context, Map<String, List<String>> params, { handlerType = Fluro.HandlerType.function }) {
       logger.finer('Navigate to /');
       return HomeScreen();
+    }),
+    '/game': _RouteDef('/game', (BuildContext context, Map<String, List<String>> params, { handlerType = Fluro.HandlerType.function }) {
+      logger.finer('Navigate to /game');
+      return GameScreen();
     }),
   };
 }

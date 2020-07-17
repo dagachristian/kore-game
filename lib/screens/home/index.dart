@@ -1,4 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
+
+import '../../config/index.dart';
+import '../../router.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -8,6 +13,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Text('hi');
+    final ThemeData theme = Theme.of(context);
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(image: config.companyData.image1, fit: BoxFit.cover),
+      ),
+      child: Center(
+        child: FlatButton(
+          child: Text('Start Game', style: theme.textTheme.headline1),
+          onPressed: () {
+            router.push('/game');
+          },
+        ),
+      ),
+    );
   }
 }

@@ -18,8 +18,8 @@ class Default implements CompanyData {
   @override
   ThemeData get theme => ThemeData(
     brightness: Brightness.dark,
-    primaryColor: Colors.blue[800],
-    accentColor: Colors.cyan[400],
+    primaryColor: Colors.indigo[800],
+    accentColor: Colors.deepPurpleAccent[100],
     backgroundColor: Colors.grey[900].withOpacity(0.7),
     // Define the default font family.
     fontFamily: 'Roboto',
@@ -39,5 +39,5 @@ class Default implements CompanyData {
   );
 
   @override
-  AssetImage get image1 => AssetImage('assets/images/default.jpg');
+  AssetImage get image1 => AssetImage('assets/images/default.png');
 }
