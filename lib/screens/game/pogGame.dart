@@ -3,7 +3,11 @@ import 'dart:ui';
 
 import 'package:flame/game/game.dart';
 import 'package:flutter/gestures.dart';
+import 'package:kore_game/screens/game/components/start-button.dart';
 
+import './view.dart';
+import './views/home-view.dart';
+import './views/lost-view.dart';
 import './components/backyard.dart';
 import './components/fly.dart';
 import './components/agile-fly.dart';
@@ -11,16 +15,24 @@ import './components/house-fly.dart';
 import './components/drooler-fly.dart';
 import './components/hungry-fly.dart';
 import './components/macho-fly.dart';
+import './controllers/spawner.dart';
 
 import '../../config/flame.dart';
 
 class PogGame extends Game {
+  Random rnd;
+
+  FlySpawner spawner;
+
   Size screenSize;
   double tileSize;
   List<Fly> flies;
   Backyard background;
+  StartButton startButton;
 
-  Random rnd;
+  View activeView = View.home;
+  HomeView homeView;
+  LostView lostView;
 
   PogGame() {
     initialize();
@@ -30,9 +42,13 @@ class PogGame extends Game {
     flies = <Fly>[];
     rnd = Random();
     resize(await flame.flameUtil.initialDimensions());
-    background = Backyard(this);
 
-    spawnFly();
+    spawner = FlySpawner(this);
+
+    background = Backyard(this);
+    startButton = StartButton(this);
+    homeView = HomeView(this);
+    lostView = LostView(this);
   }
 
   void spawnFly() {
@@ -62,12 +78,21 @@ class PogGame extends Game {
     background.render(canvas);
 
     flies.forEach((Fly fly) => fly.render(canvas));
+
+    if (activeView == View.home) homeView.render(canvas);
+
+    if (activeView == View.home || activeView == View.lost) {
+      startButton.render(canvas);
+    }
+
+    if (activeView == View.lost) lostView.render(canvas);
   }
 
   @override
   void update(double t) {
     flies.forEach((Fly fly) => fly.update(t));
     flies.removeWhere((Fly fly) => fly.isOffScreen);
+    spawner.update(t);
   }
   
   @override
@@ -78,10 +103,27 @@ class PogGame extends Game {
   }
 
   void onTapDown(TapDownDetails d) {
-    flies.forEach((Fly fly) {
-      if (fly.flyRect.contains(d.globalPosition)) {
-        fly.onTapDown();
+    bool isHandled = false;
+
+    if (!isHandled && startButton.rect.contains(d.globalPosition)) {
+      if (activeView == View.home || activeView == View.lost) {
+        startButton.onTapDown();
+        isHandled = true;
       }
-    });
+    }
+
+    if (!isHandled) {
+      bool didHitAFly = false;
+      flies.forEach((Fly fly) {
+        if (fly.flyRect.contains(d.globalPosition)) {
+          fly.onTapDown();
+          isHandled = true;
+          didHitAFly = true;
+        }
+      });
+      if (activeView == View.playing && !didHitAFly) {
+        activeView = View.lost;
+      }
+    }
   }
 }

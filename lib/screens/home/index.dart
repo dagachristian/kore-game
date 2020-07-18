@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: Center(
         child: FlatButton(
-          child: Text('Start Game', style: theme.textTheme.headline1),
+          child: Text('Play Langaw', style: theme.textTheme.headline1),
           onPressed: () {
             router.push('/game');
           },
