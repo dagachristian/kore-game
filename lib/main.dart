@@ -8,6 +8,7 @@ import './config/index.dart' show config;
 import './logger.dart' show initLogger;
 import './config/flame.dart' show flame;
 import './router.dart' show fluroRouter;
+import './bgm.dart' show BGM;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,4 +27,5 @@ void main() async {
       child: App()
     ),
   );
+  BGM.attachWidgetBindingListener();
 }

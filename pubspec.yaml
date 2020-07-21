@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  audioplayers: ^0.15.1
   easy_localization: ^2.3.2
   flame: ^0.24.0
   fluro: ^1.6.3
@@ -60,6 +61,8 @@ flutter:
   - assets/images/flies/
   - assets/images/ui/
   - assets/images/branding/
+  - assets/audio/bgm/
+  - assets/audio/sfx/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

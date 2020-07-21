@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' show Locale;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logging/logging.dart' show Level;
 import 'package:quiver/strings.dart' show equalsIgnoreCase;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './assetLoader.dart' show CustomAssetLoader;
 import './themes/index.dart' show CompanyData, themes;
@@ -28,6 +29,9 @@ class _Config {
   FlutterSecureStorage _storage;
   FlutterSecureStorage get storage => _storage;
 
+  SharedPreferences _sharedPrefs;
+  SharedPreferences get sharedPrefs => _sharedPrefs;
+
   Future<void> initConfig() async {
     const String loggerLevelEnv = String.fromEnvironment('LOGGER_LEVEL', defaultValue: '');
     print('AD: ' + loggerLevelEnv);
@@ -46,6 +50,7 @@ class _Config {
     print('API URL: ' + this._baseUrl);
 
     this._storage = FlutterSecureStorage();
+    this._sharedPrefs = await SharedPreferences.getInstance();
   }
 }
 
