@@ -4,11 +4,8 @@ import 'dart:ui';
 import 'package:flame/game/game.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/gestures.dart';
-import 'package:kore_game/bgm.dart';
-import 'package:kore_game/screens/game/components/music-button.dart';
-import 'package:kore_game/screens/game/components/sound-button.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 import './view.dart';
 import './views/home-view.dart';
@@ -30,10 +27,13 @@ import './components/macho-fly.dart';
 import './components/start-button.dart';
 import './components/help-button.dart';
 import './components/credits-button.dart';
+import './components/music-button.dart';
+import './components/sound-button.dart';
 
 import './controllers/spawner.dart';
 
 import '../../config/flame.dart';
+import '../../bgm.dart';
 
 class PogGame extends Game {
   Random rnd;

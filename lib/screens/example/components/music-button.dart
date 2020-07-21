@@ -1,9 +1,10 @@
 import 'dart:ui';
 
 import 'package:flame/sprite.dart';
-import 'package:kore_game/bgm.dart';
-import 'package:kore_game/screens/game/view.dart';
 
+import '../../../bgm.dart';
+
+import '../view.dart';
 import '../pogGame.dart';
 
 class MusicButton {

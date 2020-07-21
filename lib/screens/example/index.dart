@@ -1,12 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import './dankGame.dart';
+import './pogGame.dart';
 
+import '../../config/index.dart' show config;
 import '../../config/flame.dart' show flame;
 
-class DankGameScreen extends StatelessWidget {
-  final DankGame game = DankGame();
+class GameScreen extends StatelessWidget {
+  final PogGame game = PogGame(config.sharedPrefs);
   final TapGestureRecognizer tapper = TapGestureRecognizer();
 
   @override

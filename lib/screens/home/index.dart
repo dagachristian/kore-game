@@ -1,5 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
-
 import 'package:flutter/material.dart';
 
 import '../../config/index.dart';
@@ -19,12 +17,20 @@ class _HomeScreenState extends State<HomeScreen> {
         image: DecorationImage(image: config.companyData.image1, fit: BoxFit.cover),
       ),
       child: Center(
-        child: FlatButton(
-          child: Text('Play Langaw', style: theme.textTheme.headline1),
-          onPressed: () {
-            router.push('/game');
-          },
-        ),
+        child: Column(children: <Widget>[
+          FlatButton(
+            child: Text('Play Langaw', style: theme.textTheme.headline1),
+            onPressed: () {
+              router.push('/game/langaw');
+            },
+          ),
+          FlatButton(
+            child: Text('Play Dank Game', style: theme.textTheme.headline1),
+            onPressed: () {
+              router.push('/game/dank');
+            },
+          ),
+        ],),
       ),
     );
   }
