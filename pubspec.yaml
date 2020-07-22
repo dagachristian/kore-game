@@ -58,10 +58,11 @@ flutter:
   - assets/translations/
   - assets/images/
   - assets/images/bg/
-  - assets/images/flies/
   - assets/images/ui/
   - assets/images/branding/
+  - assets/images/branding/logos/
   - assets/images/sprites/
+  - assets/images/sprites/player/
   - assets/images/sprites/enemies/
   - assets/audio/bgm/
   - assets/audio/sfx/

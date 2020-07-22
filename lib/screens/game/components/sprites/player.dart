@@ -23,7 +23,7 @@ class Player extends SpriteComponent implements JoystickListener {
   double direction = 0;
   bool _move = false;
 
-  Player(this.game) : super.fromSprite(96.0, 132.0, Sprite('sprites/player.png'));
+  Player(this.game) : super.fromSprite(96.0, 132.0, Sprite('sprites/player/player.png'));
 
   void attack() {
     game.enemies.forEach((Enemy enemy) {

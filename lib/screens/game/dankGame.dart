@@ -15,6 +15,8 @@ import './components/sprites/player.dart';
 import './components/sprites/enemy.dart';
 import './components/sprites/enemies/index.dart';
 
+import './components/ui/background.dart';
+
 import './controllers/enemyController.dart';
 
 class DankGame extends BaseGame with TapDetector, MultiTouchDragDetector {
@@ -30,11 +32,14 @@ class DankGame extends BaseGame with TapDetector, MultiTouchDragDetector {
     ]
   );
 
-  View activeView = View.home;
+  BackGround bg;
+  
   Player player;
   List<Enemy> enemies;
 
   EnemyController enemyController;
+
+  View activeView = View.home;
 
   DankGame() {
     initialize();
@@ -48,6 +53,7 @@ class DankGame extends BaseGame with TapDetector, MultiTouchDragDetector {
     enemies = <Enemy>[];
     
     enemyController = EnemyController(this);
+    bg = BackGround(this);
 
     joystick.addObserver(player);
     
@@ -55,6 +61,7 @@ class DankGame extends BaseGame with TapDetector, MultiTouchDragDetector {
   }
 
   void initSprites() {
+    add(bg);
     add(player);
     add(joystick);
 
