@@ -5,4 +5,9 @@ abstract class Enemy extends SpriteComponent {
   DankGame game;
   bool isDead = false;
   double speed;
+  double health;
+  double damage;
+  double range;
+
+  void attack(double t);
 }

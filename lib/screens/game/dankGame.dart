@@ -8,13 +8,12 @@ import 'package:flame/flame.dart';
 import 'package:flame/game/base_game.dart';
 import 'package:flame/gestures.dart';
 import 'package:flutter/gestures.dart';
-import 'package:kore_game/screens/game/components/sprites/enemies/basicEnemy.dart';
-
 
 import './view.dart';
 
 import './components/sprites/player.dart';
 import './components/sprites/enemy.dart';
+import './components/sprites/enemies/index.dart';
 
 import './controllers/enemyController.dart';
 
@@ -37,6 +36,24 @@ class DankGame extends BaseGame with TapDetector, MultiTouchDragDetector {
 
   EnemyController enemyController;
 
+  DankGame() {
+    initialize();
+  }
+
+  void initialize() async {
+    r = Random();
+    super.resize(await Flame.util.initialDimensions());
+
+    player = Player(this);
+    enemies = <Enemy>[];
+    
+    enemyController = EnemyController(this);
+
+    joystick.addObserver(player);
+    
+    initSprites();
+  }
+
   void initSprites() {
     add(player);
     add(joystick);
@@ -48,25 +65,22 @@ class DankGame extends BaseGame with TapDetector, MultiTouchDragDetector {
     Enemy enemy = BasicEnemy(this);
     enemy.x = r.nextInt(size.width.toInt()).toDouble();
     enemy.y = r.nextInt(size.height.toInt()).toDouble();
+    switch(r.nextInt(4)) {
+      case 0:
+        enemy.x += size.width;
+        break;
+      case 1:
+        enemy.x -= size.width;
+        break;
+      case 2:
+        enemy.y += size.height;
+        break;
+      case 3:
+        enemy.y -= size.height;
+        break;
+    }
     enemies.add(enemy);
     add(enemy);
-  }
-
-  @override
-  void onAttach() async {
-    super.onAttach();
-
-    r = Random();
-    super.resize(await Flame.util.initialDimensions());
-
-    player = Player();
-    enemies = <Enemy>[];
-    
-    enemyController = EnemyController(this);
-
-    joystick.addObserver(player);
-    
-    initSprites();
   }
 
   @override
@@ -85,6 +99,8 @@ class DankGame extends BaseGame with TapDetector, MultiTouchDragDetector {
     enemyController.update(t);
     player.update(t);
     enemies.forEach((e) => e.update(t));
+
+    super.update(t);
   }
 
   @override

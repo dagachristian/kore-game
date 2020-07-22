@@ -6,11 +6,12 @@ class EnemyController {
   final int maxSpawnInterval = 3000;
   final int minSpawnInterval = 250;
   final int intervalChange = 3;
-  final int maxEnemies = 7;
+  final int maxEnemies = 10;
 
   final DankGame game;
   int currentInterval;
   int nextSpawn;
+  bool stopped;
 
   EnemyController(this.game) {
     start();
@@ -20,6 +21,11 @@ class EnemyController {
     killAll();
     currentInterval = maxSpawnInterval;
     nextSpawn = DateTime.now().millisecondsSinceEpoch + currentInterval;
+    stopped = false;
+  }
+
+  void stop() {
+    stopped = true;
   }
 
   void killAll() {
@@ -29,12 +35,12 @@ class EnemyController {
   void update(double t) {
     int nowTimestamp = DateTime.now().millisecondsSinceEpoch;
 
-    int livingFlies = 0;
+    int livingEnemies = 0;
     game.enemies.forEach((Enemy enemy) {
-      if (!enemy.isDead) livingFlies += 1;
+      if (!enemy.isDead) livingEnemies += 1;
     });
 
-    if (nowTimestamp >= nextSpawn && livingFlies < maxEnemies) {
+    if (nowTimestamp >= nextSpawn && livingEnemies < maxEnemies && !stopped) {
       game.spawnEnemy();
       if (currentInterval > minSpawnInterval) {
         currentInterval -= intervalChange;
