@@ -1,6 +1,7 @@
 import 'package:flame/flame.dart';
 import 'package:flame/util.dart';
-import 'package:kore_game/bgm.dart';
+
+import '../bgm.dart';
 
 class _Flame {
   Util flameUtil;
@@ -39,6 +40,9 @@ class _Flame {
       'flies/macho-fly-1.png',
       'flies/macho-fly-2.png',
       'flies/macho-fly-dead.png',
+
+      'sprites/player.png',
+      'sprites/enemies/basic_enemy.png'
     ]);
 
     Flame.audio.disableLog();

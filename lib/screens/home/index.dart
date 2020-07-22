@@ -17,20 +17,24 @@ class _HomeScreenState extends State<HomeScreen> {
         image: DecorationImage(image: config.companyData.image1, fit: BoxFit.cover),
       ),
       child: Center(
-        child: Column(children: <Widget>[
-          FlatButton(
-            child: Text('Play Langaw', style: theme.textTheme.headline1),
-            onPressed: () {
-              router.push('/game/langaw');
-            },
-          ),
-          FlatButton(
-            child: Text('Play Dank Game', style: theme.textTheme.headline1),
-            onPressed: () {
-              router.push('/game/dank');
-            },
-          ),
-        ],),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            FlatButton(
+              child: Text('Langaw', style: theme.textTheme.headline1),
+              onPressed: () {
+                router.push('/game/langaw');
+              },
+            ),
+            SizedBox(height: 20.0),
+            FlatButton(
+              child: Text('Dank Game', style: theme.textTheme.headline1),
+              onPressed: () {
+                router.push('/game/dank');
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

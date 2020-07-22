@@ -80,7 +80,7 @@ class _FluroRouter extends Fluro.Router {
       return GameScreen();
     }),
     '/game/dank': _RouteDef('/game/dank', (BuildContext context, Map<String, List<String>> params, { handlerType = Fluro.HandlerType.function }) {
-      logger.finer('Navigate to /game/langaw');
+      logger.finer('Navigate to /game/dank');
       return DankGameScreen();
     }),
   };
