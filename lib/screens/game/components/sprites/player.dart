@@ -12,8 +12,8 @@ class Player extends SpriteComponent implements JoystickListener {
   final DankGame game;
 
   final double speed = 115.0;
+  final double maxHealth = 100.0;
 
-  double maxHealth = 100.0;
   bool isDead = false;
   double damage = 20.0;
   double range = 100.0;
@@ -35,7 +35,7 @@ class Player extends SpriteComponent implements JoystickListener {
 
   @override
   void update(double t) {
-    if (health <= 0) {
+    if ((health == null) ? false: health <= 0) {
       isDead = true;
       game.enemyController.stop();
       health = maxHealth;

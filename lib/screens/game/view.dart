@@ -1,3 +1,5 @@
 enum View {
-  home
+  home,
+  gameOver,
+  playing,
 }

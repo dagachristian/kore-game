@@ -4,22 +4,24 @@ import 'dart:ui';
 import 'package:flame/components/joystick/joystick_action.dart';
 import 'package:flame/components/joystick/joystick_component.dart';
 import 'package:flame/components/joystick/joystick_directional.dart';
+import 'package:flame/components/mixins/tapable.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game/base_game.dart';
 import 'package:flame/gestures.dart';
 import 'package:flutter/gestures.dart';
 
 import './view.dart';
+import './views/index.dart';
 
 import './components/sprites/player.dart';
 import './components/sprites/enemy.dart';
 import './components/sprites/enemies/index.dart';
 
-import './components/ui/background.dart';
+import './components/ui/index.dart';
 
 import './controllers/enemyController.dart';
 
-class DankGame extends BaseGame with TapDetector, MultiTouchDragDetector {
+class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponents {
   Random r;
 
   final JoystickComponent joystick = JoystickComponent(
@@ -33,6 +35,9 @@ class DankGame extends BaseGame with TapDetector, MultiTouchDragDetector {
   );
 
   BackGround bg;
+
+  Size screenSize;
+  double tileSize;
   
   Player player;
   List<Enemy> enemies;
@@ -40,6 +45,10 @@ class DankGame extends BaseGame with TapDetector, MultiTouchDragDetector {
   EnemyController enemyController;
 
   View activeView = View.home;
+  HomeView homeView;
+  GameOverView gameOverView;
+
+  StartButton startButton;
 
   DankGame() {
     initialize();
@@ -49,8 +58,14 @@ class DankGame extends BaseGame with TapDetector, MultiTouchDragDetector {
     r = Random();
     super.resize(await Flame.util.initialDimensions());
 
-    player = Player(this);
     enemies = <Enemy>[];
+
+    player = Player(this);
+    
+    homeView = HomeView(this);
+    gameOverView = GameOverView(this);
+
+    startButton = StartButton(this);
     
     enemyController = EnemyController(this);
     bg = BackGround(this);
@@ -62,10 +77,8 @@ class DankGame extends BaseGame with TapDetector, MultiTouchDragDetector {
 
   void initSprites() {
     add(bg);
-    add(player);
-    add(joystick);
-
-    enemyController.start();
+    add(homeView);
+    add(startButton);
   }
 
   void spawnEnemy() {
@@ -98,6 +111,11 @@ class DankGame extends BaseGame with TapDetector, MultiTouchDragDetector {
 
   @override
   void render(Canvas c) {
+    if (activeView == View.home) {
+      add(homeView);
+      add(startButton);
+    }
+
     super.render(c);
   }
 
@@ -111,5 +129,10 @@ class DankGame extends BaseGame with TapDetector, MultiTouchDragDetector {
   }
 
   @override
-  void onTapDown(TapDownDetails details) {}
+  void resize(Size size) {
+    screenSize = size;
+    tileSize = screenSize.width / 9;
+
+    super.resize(size);
+  }
 }
