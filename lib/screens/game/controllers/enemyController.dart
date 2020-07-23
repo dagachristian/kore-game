@@ -11,9 +11,10 @@ class EnemyController {
   final DankGame game;
   int currentInterval;
   int nextSpawn;
-  bool stopped = true;
+  bool stopped;
 
   EnemyController(this.game) {
+    stopped = true;
     start();
   }
 

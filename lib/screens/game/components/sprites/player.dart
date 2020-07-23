@@ -5,8 +5,11 @@ import 'package:flame/components/component.dart';
 import 'package:flame/components/joystick/joystick_component.dart';
 import 'package:flame/components/joystick/joystick_events.dart';
 import 'package:flame/sprite.dart';
-import 'package:kore_game/screens/game/components/sprites/enemy.dart';
-import 'package:kore_game/screens/game/dankGame.dart';
+
+import './enemy.dart';
+
+import '../../view.dart';
+import '../../dankGame.dart';
 
 class Player extends SpriteComponent implements JoystickListener {
   final DankGame game;
@@ -23,7 +26,9 @@ class Player extends SpriteComponent implements JoystickListener {
   double direction = 0;
   bool _move = false;
 
-  Player(this.game) : super.fromSprite(96.0, 132.0, Sprite('sprites/player/player.png'));
+  Player(this.game) : super.fromSprite(96.0, 132.0, Sprite('sprites/player/player.png')) {
+    health = maxHealth;
+  }
 
   void attack() {
     game.enemies.forEach((Enemy enemy) {
@@ -39,6 +44,7 @@ class Player extends SpriteComponent implements JoystickListener {
       isDead = true;
       game.enemyController.stop();
       health = maxHealth;
+      game.activeView == View.gameOver;
     }
     if (!isDead) {
       if (_move) {
@@ -69,8 +75,6 @@ class Player extends SpriteComponent implements JoystickListener {
   void resize(Size size) {
     this.x = (size.width - this.width)/2;
     this.y = (size.width - this.width)/2;
-
-    health = maxHealth;
 
     super.resize(size);
   }

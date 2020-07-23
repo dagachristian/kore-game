@@ -14,6 +14,7 @@ class _Flame {
     await Flame.images.loadAll(<String>[
       'bg/background.jpg',
       'branding/logo.png',
+      'branding/spritesheet.png',
       'ui/game_over.png',
       'ui/restart.png',
       'ui/start.png',

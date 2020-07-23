@@ -111,19 +111,14 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
 
   @override
   void render(Canvas c) {
-    if (activeView == View.home) {
-      add(homeView);
-      add(startButton);
-    }
-
     super.render(c);
   }
 
   @override
   void update(double t) {
-    enemyController.update(t);
-    player.update(t);
-    enemies.forEach((e) => e.update(t));
+    enemyController?.update(t);
+    player?.update(t);
+    enemies?.forEach((e) => e.update(t));
 
     super.update(t);
   }

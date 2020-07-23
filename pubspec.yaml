@@ -60,7 +60,6 @@ flutter:
   - assets/images/bg/
   - assets/images/ui/
   - assets/images/branding/
-  - assets/images/branding/logos/
   - assets/images/sprites/
   - assets/images/sprites/player/
   - assets/images/sprites/enemies/
