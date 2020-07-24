@@ -6,16 +6,13 @@ import 'package:flame/sprite.dart';
 
 import './player.dart';
 
-import '../../../dankGame.dart';
-
 class PlayerAttack extends AnimationComponent {
-  final DankGame game;
   final Player player;
 
   @override
   final bool destroyOnFinish = true;
 
-  PlayerAttack(this.game, this.player) : super(player.width, player.height, Animation.spriteList(<Sprite>[
+  PlayerAttack(this.player) : super(player.width, player.height, Animation.spriteList(<Sprite>[
     Sprite('sprites/player/player_attack_01.png'),
     Sprite('sprites/player/player_attack_02.png'),
     Sprite('sprites/player/player.png')

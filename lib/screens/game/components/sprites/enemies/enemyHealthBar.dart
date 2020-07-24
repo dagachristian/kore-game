@@ -1,20 +1,21 @@
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
-import 'package:kore_game/screens/game/destructable.dart';
 
-import 'enemy.dart';
+import '../mob.dart';
+
+import '../../../destructable.dart';
 
 class EnemyHealthBar extends SpriteComponent with Destructable {
-  final Enemy enemy;
+  final Mob mob;
 
-  EnemyHealthBar(this.enemy) : super.fromSprite(enemy.width, 5, Sprite('ui/healthbar.png'));
+  EnemyHealthBar(this.mob) : super.fromSprite(mob.width, 5, Sprite('ui/healthbar.png'));
 
   @override
   void update(double t) {
-    this.x = enemy.x;
-    this.y = enemy.y - 10;
+    this.x = mob.x;
+    this.y = mob.y - 10;
 
-    this.width = enemy.health / enemy.maxHealth * enemy.width;
+    this.width = mob.health / mob.maxHealth * mob.width;
 
     super.update(t);
   }

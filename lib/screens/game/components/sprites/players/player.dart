@@ -9,20 +9,21 @@ import 'package:flame/sprite.dart';
 import './playerDeath.dart';
 import './playerAttack.dart';
 
-import '../entity.dart';
+import '../mob.dart';
 import '../enemies/enemy.dart';
 
 import '../../../view.dart';
 import '../../../dankGame.dart';
 import '../../../destructable.dart';
 
-class Player extends SpriteComponent with Destructable implements JoystickListener, Entity {
+class Player extends SpriteComponent with Destructable implements JoystickListener, Mob {
   final DankGame game;
 
   final double speed = 230.0;
   @override
   final double maxHealth = 100.0;
 
+  @override
   bool isDead = false;
   double damage = 20.0;
   double range = 100.0;
@@ -39,8 +40,8 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
   }
 
   void attack() {
-    game.add(PlayerAttack(game, game.player));
-    game.enemies.forEach((Enemy enemy) {
+    game.add(PlayerAttack(game.player));
+    game.enemyController.enemies.forEach((Enemy enemy) {
       if ((enemy.x - x).abs() < range && (enemy.y - y).abs() < range) {
         enemy.health -= damage;
       }
@@ -58,7 +59,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
     game.enemyController.stop();
     health = maxHealth;
     game.activeView == View.gameOver;
-    game.add(PlayerDeath(game, game.player));
+    game.add(PlayerDeath(game.player));
     game.spawn([game.gameOverView, game.restartButton]);
     game.remove([game.joyStick, game.healthBar, game.player]);
   }

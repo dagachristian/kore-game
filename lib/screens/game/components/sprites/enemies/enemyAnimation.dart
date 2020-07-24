@@ -6,20 +6,13 @@ import 'package:flame/sprite.dart';
 
 import 'enemy.dart';
 
-import '../../../dankGame.dart';
-
-class BasicEnemyAttack extends AnimationComponent {
-  final DankGame game;
+class EnemyAnimation extends AnimationComponent {
   final Enemy enemy;
 
   @override
   final bool destroyOnFinish = true;
 
-  BasicEnemyAttack(this.game, this.enemy) : super(enemy.width, enemy.height, Animation.spriteList(<Sprite>[
-    Sprite('sprites/enemies/basic_enemy_attack_01.png'),
-    Sprite('sprites/enemies/basic_enemy_attack_02.png'),
-    Sprite('sprites/enemies/basic_enemy.png')
-  ], stepTime: 0.2, loop: false));
+  EnemyAnimation(this.enemy, List<Sprite> sprites) : super(enemy.width, enemy.height, Animation.spriteList(sprites, stepTime: 0.2, loop: false));
 
   @override
   void resize(Size size) {

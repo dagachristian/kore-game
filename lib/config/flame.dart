@@ -36,6 +36,15 @@ class _Flame {
       'sprites/enemies/basic_enemy_death_02.png',
       'sprites/enemies/basic_enemy_death_03.png',
       'sprites/enemies/basic_enemy_death_04.png',
+      'sprites/enemies/rare_enemy.png',
+      'sprites/enemies/rare_enemy_attack_01.png',
+      'sprites/enemies/rare_enemy_attack_02.png',
+      'sprites/enemies/rare_enemy_attack_03.png',
+      'sprites/enemies/rare_enemy_attack_04.png',
+      'sprites/enemies/rare_enemy_death_01.png',
+      'sprites/enemies/rare_enemy_death_02.png',
+      'sprites/enemies/rare_enemy_death_03.png',
+      'sprites/enemies/rare_enemy_death_04.png',
     ]);
 
     Flame.audio.disableLog();

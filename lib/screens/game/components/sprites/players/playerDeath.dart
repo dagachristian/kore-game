@@ -6,16 +6,13 @@ import 'package:flame/sprite.dart';
 
 import './player.dart';
 
-import '../../../dankGame.dart';
-
 class PlayerDeath extends AnimationComponent {
-  final DankGame game;
   final Player player;
 
   @override
   final bool destroyOnFinish = true;
 
-  PlayerDeath(this.game, this.player) : super(player.width, player.height, Animation.spriteList(<Sprite>[
+  PlayerDeath(this.player) : super(player.width, player.height, Animation.spriteList(<Sprite>[
     Sprite('sprites/player/player_death_01.png'),
     Sprite('sprites/player/player_death_02.png'),
     Sprite('sprites/player/player_death_03.png'),

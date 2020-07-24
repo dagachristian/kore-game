@@ -29,7 +29,6 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   double tileSize;
   
   Player player;
-  List<Enemy> enemies;
   int score;
 
   EnemyController enemyController;
@@ -50,7 +49,6 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     r = Random();
     super.resize(await Flame.util.initialDimensions());
 
-    enemies = <Enemy>[];
     score = 0;
 
     player = Player(this);
@@ -87,28 +85,6 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     cs.forEach((c) {
       c.remove();
     });
-  }
-
-  void spawnEnemy() {
-    Enemy enemy = BasicEnemy(this);
-    enemy.x = r.nextInt(size.width.toInt()).toDouble();
-    enemy.y = r.nextInt(size.height.toInt()).toDouble();
-    switch(r.nextInt(4)) {
-      case 0:
-        enemy.x += size.width;
-        break;
-      case 1:
-        enemy.x -= size.width;
-        break;
-      case 2:
-        enemy.y += size.height;
-        break;
-      case 3:
-        enemy.y -= size.height;
-        break;
-    }
-    enemies.add(enemy);
-    spawn([enemy]);
   }
 
   @override

@@ -2,8 +2,8 @@ import 'package:flame/components/joystick/joystick_action.dart';
 import 'package:flame/components/joystick/joystick_component.dart';
 import 'package:flame/components/joystick/joystick_directional.dart';
 import 'package:flutter/painting.dart';
-import 'package:kore_game/screens/game/destructable.dart';
 
+import '../../../destructable.dart';
 import '../../../dankGame.dart';
 
 class JoyStick extends JoystickComponent with Destructable {

@@ -8,7 +8,7 @@ import './enemyHealthBar.dart';
 import '../../../destructable.dart';
 import '../../../dankGame.dart';
 
-class BasicEnemy extends SpriteComponent with Destructable implements Enemy {
+class RareEnemy extends SpriteComponent with Destructable implements Enemy {
   @override
   DankGame game;
   @override
@@ -16,35 +16,37 @@ class BasicEnemy extends SpriteComponent with Destructable implements Enemy {
   @override
   bool isDead = false;
   @override
-  double speed = 150.0;
+  double speed = 200.0;
   @override
   double maxHealth = 50.0;
   @override
   double damage = 50.0;
   @override
-  double range = 50.0;
+  double range = 80.0;
   @override
-  double attackSpeed = 1;
+  double attackSpeed = 0.5;
 
   @override
   double health;
 
   @override
   List<Sprite> attackAnim = <Sprite>[
-    Sprite('sprites/enemies/basic_enemy_attack_01.png'),
-    Sprite('sprites/enemies/basic_enemy_attack_02.png'),
-    Sprite('sprites/enemies/basic_enemy.png')
+    Sprite('sprites/enemies/rare_enemy_attack_01.png'),
+    Sprite('sprites/enemies/rare_enemy_attack_02.png'),
+    Sprite('sprites/enemies/rare_enemy_attack_03.png'),
+    Sprite('sprites/enemies/rare_enemy_attack_04.png'),
+    Sprite('sprites/enemies/rare_enemy.png')
   ];
 
   @override
   List<Sprite> deathAnim = <Sprite>[
-    Sprite('sprites/enemies/basic_enemy_death_01.png'),
-    Sprite('sprites/enemies/basic_enemy_death_02.png'),
-    Sprite('sprites/enemies/basic_enemy_death_03.png'),
-    Sprite('sprites/enemies/basic_enemy_death_04.png'),
+    Sprite('sprites/enemies/rare_enemy_death_01.png'),
+    Sprite('sprites/enemies/rare_enemy_death_02.png'),
+    Sprite('sprites/enemies/rare_enemy_death_03.png'),
+    Sprite('sprites/enemies/rare_enemy_death_04.png'),
   ];
 
-  BasicEnemy(this.game) : super.fromSprite(72.0, 64.0, Sprite('sprites/enemies/basic_enemy.png')) {
+  RareEnemy(this.game) : super.fromSprite(72.0, 64.0, Sprite('sprites/enemies/rare_enemy.png')) {
     health = maxHealth;
     enemyHealthBar = EnemyHealthBar(this);
     game.add(enemyHealthBar);

@@ -1,6 +1,7 @@
 import 'package:flame/components/component.dart';
 
-abstract class Entity extends SpriteComponent {
+abstract class Mob extends SpriteComponent {
+  bool isDead;
   double maxHealth;
   double health;
 }
