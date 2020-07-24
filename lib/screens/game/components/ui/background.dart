@@ -2,10 +2,11 @@ import 'dart:ui';
 
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
+import 'package:kore_game/screens/game/destructable.dart';
 
 import '../../dankGame.dart';
 
-class BackGround extends Component {
+class BackGround extends Component with Destructable {
   final DankGame game;
   Sprite bgSprite;
   Rect bgRect;

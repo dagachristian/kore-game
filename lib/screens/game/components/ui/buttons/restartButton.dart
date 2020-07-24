@@ -4,11 +4,12 @@ import 'package:flame/components/component.dart';
 import 'package:flame/components/mixins/tapable.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
+import 'package:kore_game/screens/game/destructable.dart';
 
 import '../../../view.dart';
 import '../../../dankGame.dart';
 
-class RestartButton extends SpriteComponent with Tapable {
+class RestartButton extends SpriteComponent with Tapable, Destructable {
   final DankGame game;
 
   RestartButton(this.game) : super.fromSprite(game.tileSize * 3, game.tileSize * 3, Sprite('ui/restart.png'));
@@ -23,11 +24,10 @@ class RestartButton extends SpriteComponent with Tapable {
 
   @override
   void onTapDown(TapDownDetails details) {
-    game.add(game.player);
-    game.add(game.joystick);
-    game.gameOverView.destroy();
-    destroy();
+    game.spawn([game.player, game.joyStick, game.scoreDisplay]);
+    game.remove([game.gameOverView, game.restartButton]);
     game.enemyController.start();
+    game.player.isDead = false;
     game.activeView = View.playing;
   }
 }

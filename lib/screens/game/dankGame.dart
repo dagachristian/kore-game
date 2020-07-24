@@ -1,19 +1,18 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:flame/components/joystick/joystick_action.dart';
-import 'package:flame/components/joystick/joystick_component.dart';
-import 'package:flame/components/joystick/joystick_directional.dart';
+import 'package:flame/components/component.dart';
 import 'package:flame/components/mixins/tapable.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game/base_game.dart';
 import 'package:flame/gestures.dart';
-import 'package:flutter/gestures.dart';
+import 'package:kore_game/screens/game/destructable.dart';
 
 import './view.dart';
 import './views/index.dart';
 
 import './components/sprites/player.dart';
+import './components/sprites/playerAttack.dart';
 import './components/sprites/enemy.dart';
 import './components/sprites/enemies/index.dart';
 
@@ -24,23 +23,16 @@ import './controllers/enemyController.dart';
 class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponents {
   Random r;
 
-  final JoystickComponent joystick = JoystickComponent(
-    componentPriority: 0,
-    directional: JoystickDirectional(),
-    actions: [
-      JoystickAction(
-        actionId: 1
-      )
-    ]
-  );
-
   BackGround bg;
+  ScoreDisplay scoreDisplay;
 
   Size screenSize;
   double tileSize;
   
   Player player;
+  PlayerAttack playerAttack;
   List<Enemy> enemies;
+  int score;
 
   EnemyController enemyController;
 
@@ -48,7 +40,9 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   HomeView homeView;
   GameOverView gameOverView;
 
+  JoyStick joyStick;
   StartButton startButton;
+  RestartButton restartButton;
 
   DankGame() {
     initialize();
@@ -59,26 +53,40 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     super.resize(await Flame.util.initialDimensions());
 
     enemies = <Enemy>[];
+    score = 0;
 
     player = Player(this);
+    playerAttack = PlayerAttack(this);
     
     homeView = HomeView(this);
     gameOverView = GameOverView(this);
 
+    joyStick = JoyStick(this);
     startButton = StartButton(this);
+    restartButton = RestartButton(this);
     
     enemyController = EnemyController(this);
     bg = BackGround(this);
+    scoreDisplay = ScoreDisplay(this);
 
-    joystick.addObserver(player);
+    joyStick.addObserver(player);
     
     initSprites();
   }
 
   void initSprites() {
-    add(bg);
-    add(homeView);
-    add(startButton);
+    spawn([bg, homeView, startButton]);
+  }
+
+  void spawn(List<Destructable> cs) {
+    cs.forEach((c) {
+      c.spawn();
+      add(c);
+    });
+  }
+
+  void remove(List<Destructable> cs) {
+    cs.forEach((c) => c.remove());
   }
 
   void spawnEnemy() {
@@ -100,18 +108,13 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
         break;
     }
     enemies.add(enemy);
-    add(enemy);
+    spawn([enemy]);
   }
 
   @override
   void onReceiveDrag(DragEvent drag) {
-    joystick.onReceiveDrag(drag);
+    joyStick.onReceiveDrag(drag);
     super.onReceiveDrag(drag);
-  }
-
-  @override
-  void render(Canvas c) {
-    super.render(c);
   }
 
   @override
@@ -119,6 +122,7 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     enemyController?.update(t);
     player?.update(t);
     enemies?.forEach((e) => e.update(t));
+    scoreDisplay?.update(t);
 
     super.update(t);
   }

@@ -1,5 +1,4 @@
 import '../dankGame.dart';
-
 import '../components/sprites/enemy.dart';
 
 class EnemyController {
@@ -15,7 +14,6 @@ class EnemyController {
 
   EnemyController(this.game) {
     stopped = true;
-    start();
   }
 
   void start() {
@@ -31,24 +29,26 @@ class EnemyController {
 
   void killAll() {
     game.enemies.forEach((Enemy enemy) => enemy.isDead = true);
+    game.remove(game.enemies);
   }
   
   void update(double t) {
-    int nowTimestamp = DateTime.now().millisecondsSinceEpoch;
+    if (!stopped) {
+      int nowTimestamp = DateTime.now().millisecondsSinceEpoch;
 
-    int livingEnemies = 0;
-    game.enemies.forEach((Enemy enemy) {
-      if (!enemy.isDead) livingEnemies += 1;
-    });
+      int livingEnemies = 0;
+      game.enemies.forEach((Enemy enemy) {
+        if (!enemy.isDead) livingEnemies += 1;
+      });
 
-    if (nowTimestamp >= nextSpawn && livingEnemies < maxEnemies && !stopped) {
-      game.spawnEnemy();
-      if (currentInterval > minSpawnInterval) {
-        currentInterval -= intervalChange;
-        currentInterval -= (currentInterval * .02).toInt();
+      if (nowTimestamp >= nextSpawn && livingEnemies < maxEnemies) {
+        game.spawnEnemy();
+        if (currentInterval > minSpawnInterval) {
+          currentInterval -= intervalChange;
+          currentInterval -= (currentInterval * .02).toInt();
+        }
+        nextSpawn = nowTimestamp + currentInterval;
       }
-      nextSpawn = nowTimestamp + currentInterval;
     }
   }
-
 }

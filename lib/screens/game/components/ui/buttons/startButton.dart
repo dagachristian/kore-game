@@ -7,8 +7,9 @@ import 'package:flutter/gestures.dart';
 
 import '../../../view.dart';
 import '../../../dankGame.dart';
+import '../../../destructable.dart';
 
-class StartButton extends SpriteComponent with Tapable {
+class StartButton extends SpriteComponent with Tapable, Destructable {
   final DankGame game;
 
   StartButton(this.game) : super.fromSprite(game.tileSize * 3, game.tileSize * 3, Sprite('ui/start.png'));
@@ -23,11 +24,10 @@ class StartButton extends SpriteComponent with Tapable {
 
   @override
   void onTapDown(TapDownDetails details) {
-    game.add(game.player);
-    game.add(game.joystick);
-    game.homeView.destroy();
-    destroy();
+    game.spawn([game.player, game.joyStick, game.scoreDisplay]);
+    game.remove([game.homeView, game.startButton]);
     game.enemyController.start();
+    game.player.isDead = false;
     game.activeView = View.playing;
   }
 }
