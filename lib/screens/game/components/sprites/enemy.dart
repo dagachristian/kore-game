@@ -1,6 +1,7 @@
 import 'package:flame/components/component.dart';
-import 'package:kore_game/screens/game/dankGame.dart';
-import 'package:kore_game/screens/game/destructable.dart';
+
+import '../../dankGame.dart';
+import '../../destructable.dart';
 
 abstract class Enemy extends SpriteComponent with Destructable {
   DankGame game;
@@ -12,5 +13,5 @@ abstract class Enemy extends SpriteComponent with Destructable {
 
   double health;
 
-  void attack(double t);
+  void attack();
 }

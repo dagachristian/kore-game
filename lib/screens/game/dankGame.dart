@@ -1,18 +1,17 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:flame/components/component.dart';
 import 'package:flame/components/mixins/tapable.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game/base_game.dart';
 import 'package:flame/gestures.dart';
-import 'package:kore_game/screens/game/destructable.dart';
+
+import './destructable.dart';
 
 import './view.dart';
 import './views/index.dart';
 
 import './components/sprites/player.dart';
-import './components/sprites/playerAttack.dart';
 import './components/sprites/enemy.dart';
 import './components/sprites/enemies/index.dart';
 
@@ -30,7 +29,6 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   double tileSize;
   
   Player player;
-  PlayerAttack playerAttack;
   List<Enemy> enemies;
   int score;
 
@@ -56,7 +54,6 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     score = 0;
 
     player = Player(this);
-    playerAttack = PlayerAttack(this);
     
     homeView = HomeView(this);
     gameOverView = GameOverView(this);
@@ -86,7 +83,9 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   }
 
   void remove(List<Destructable> cs) {
-    cs.forEach((c) => c.remove());
+    cs.forEach((c) {
+      c.remove();
+    });
   }
 
   void spawnEnemy() {
@@ -119,10 +118,7 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
 
   @override
   void update(double t) {
-    enemyController?.update(t);
-    player?.update(t);
-    enemies?.forEach((e) => e.update(t));
-    scoreDisplay?.update(t);
+    enemyController.update(t);
 
     super.update(t);
   }

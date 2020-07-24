@@ -5,17 +5,18 @@ import 'package:flame/components/component.dart';
 import 'package:flame/components/joystick/joystick_component.dart';
 import 'package:flame/components/joystick/joystick_events.dart';
 import 'package:flame/sprite.dart';
-import 'package:kore_game/screens/game/destructable.dart';
 
 import './enemy.dart';
+import './playerAttack.dart';
 
 import '../../view.dart';
 import '../../dankGame.dart';
+import '../../destructable.dart';
 
 class Player extends SpriteComponent with Destructable implements JoystickListener {
   final DankGame game;
 
-  final double speed = 115.0;
+  final double speed = 230.0;
   final double maxHealth = 100.0;
 
   bool isDead = false;
@@ -32,7 +33,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
   }
 
   void attack() {
-    game.add(game.playerAttack);
+    game.add(PlayerAttack(game, game.player));
     game.enemies.forEach((Enemy enemy) {
       if ((enemy.x - x).abs() < range && (enemy.y - y).abs() < range) {
         enemy.health -= damage;
@@ -51,10 +52,9 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
 
   @override
   void update(double t) {
-    if ((health == null) ? false: health <= 0) {
+    if (!isDead && (health == null) ? false: health <= 0) {
       died();
-    }
-    if (!isDead) {
+    } else if (!isDead) {
       if (_move) {
         if (x >= -60 && x <= game.size.width + 10 && y >= -60 && y <= game.size.height + 10) {
           x += intensity * speed * cos(direction) / 100.0;
@@ -90,7 +90,9 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
   @override
   void joystickAction(JoystickActionEvent event) {
     if (!isDead) {
-      attack();
+      if (event.event == ActionEvent.DOWN) {
+        attack();
+      }
     }
   }
 

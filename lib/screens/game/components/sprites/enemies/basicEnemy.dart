@@ -1,9 +1,11 @@
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
 
-import '../../../destructable.dart';
+import './basicEnemyAttack.dart';
+
 import '../enemy.dart';
 
+import '../../../destructable.dart';
 import '../../../dankGame.dart';
 class BasicEnemy extends SpriteComponent with Destructable implements Enemy {
   @override
@@ -11,11 +13,11 @@ class BasicEnemy extends SpriteComponent with Destructable implements Enemy {
   @override
   bool isDead = false;
   @override
-  double speed = 90.0;
+  double speed = 150.0;
   @override
   double maxHealth = 50.0;
   @override
-  double damage = 10.0;
+  double damage = 50.0;
   @override
   double range = 50.0;
 
@@ -26,19 +28,22 @@ class BasicEnemy extends SpriteComponent with Destructable implements Enemy {
     health = maxHealth;
   }
 
+  void died() {
+    isDead = true;
+    health = maxHealth;
+    game.score++;
+  }
+
   @override
   void update(double t) {
-    if (health <= 0) {
-      isDead = true;
-      health = maxHealth;
-      game.score++;
-    }
-    if (!isDead) {
+    if (!isDead && health <= 0) {
+      died();
+    } else if (!isDead) {
       x += (game.player.x - x) / (10000/speed);
       y += (game.player.y - y) / (10000/speed);
 
       if ((game.player.x - x).abs() < range && (game.player.y - y).abs() < range) {
-        attack(t);
+        attack();
       }
     }
 
@@ -46,7 +51,10 @@ class BasicEnemy extends SpriteComponent with Destructable implements Enemy {
   }
 
   @override
-  void attack(double t) {
-    game.player.health -= damage * t;
+  void attack() {
+    if (DateTime.now().millisecondsSinceEpoch % 1000 <= 100) {
+      game.add(BasicEnemyAttack(game, this));
+      game.player.health -= damage / 10;
+    } 
   }
 }

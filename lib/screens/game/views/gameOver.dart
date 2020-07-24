@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
-import 'package:kore_game/screens/game/destructable.dart';
 
+import '../destructable.dart';
 import '../dankGame.dart';
 
 class GameOverView extends SpriteComponent with Destructable {

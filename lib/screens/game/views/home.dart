@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flame/components/animation_component.dart';
 import 'package:flame/spritesheet.dart';
-import 'package:kore_game/screens/game/destructable.dart';
 
+import '../destructable.dart';
 import '../dankGame.dart';
 
 class HomeView extends AnimationComponent with Destructable {

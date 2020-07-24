@@ -4,8 +4,8 @@ import 'package:flame/components/component.dart';
 import 'package:flame/components/mixins/tapable.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
-import 'package:kore_game/screens/game/destructable.dart';
 
+import '../../../destructable.dart';
 import '../../../view.dart';
 import '../../../dankGame.dart';
 

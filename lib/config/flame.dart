@@ -20,9 +20,11 @@ class _Flame {
       'ui/start.png',
       'ui/game_over.png',
       'sprites/player/player.png',
-      'sprites/player/playeropen.png',
-      'sprites/player/playerclosed.png',
+      'sprites/player/player_attack_01.png',
+      'sprites/player/player_attack_02.png',
       'sprites/enemies/basic_enemy.png',
+      'sprites/enemies/basic_enemy_attack_01.png',
+      'sprites/enemies/basic_enemy_attack_02.png',
     ]);
 
     Flame.audio.disableLog();

@@ -2,7 +2,8 @@ import 'dart:ui';
 
 import 'package:flame/components/component.dart';
 import 'package:flutter/painting.dart';
-import 'package:kore_game/screens/game/destructable.dart';
+
+import '../../destructable.dart';
 
 import '../../dankGame.dart';
 
