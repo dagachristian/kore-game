@@ -6,7 +6,7 @@ import 'package:flame/sprite.dart';
 
 import './player.dart';
 
-import '../../dankGame.dart';
+import '../../../dankGame.dart';
 
 class PlayerAttack extends AnimationComponent {
   final DankGame game;

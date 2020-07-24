@@ -1,15 +1,17 @@
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
 
+import './enemy.dart';
 import './basicEnemyAttack.dart';
-
-import '../enemy.dart';
+import './enemyHealthBar.dart';
 
 import '../../../destructable.dart';
 import '../../../dankGame.dart';
 class BasicEnemy extends SpriteComponent with Destructable implements Enemy {
   @override
   DankGame game;
+  @override
+  EnemyHealthBar enemyHealthBar;
   @override
   bool isDead = false;
   @override
@@ -26,12 +28,16 @@ class BasicEnemy extends SpriteComponent with Destructable implements Enemy {
 
   BasicEnemy(this.game) : super.fromSprite(72.0, 64.0, Sprite('sprites/enemies/basic_enemy.png')) {
     health = maxHealth;
+    enemyHealthBar = EnemyHealthBar(this);
+    game.add(enemyHealthBar);
   }
 
+  @override
   void died() {
     isDead = true;
     health = maxHealth;
     game.score++;
+    game.remove([this, enemyHealthBar]);
   }
 
   @override

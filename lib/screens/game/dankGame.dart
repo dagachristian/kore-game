@@ -11,8 +11,7 @@ import './destructable.dart';
 import './view.dart';
 import './views/index.dart';
 
-import './components/sprites/player.dart';
-import './components/sprites/enemy.dart';
+import './components/sprites/players/index.dart';
 import './components/sprites/enemies/index.dart';
 
 import './components/ui/index.dart';
@@ -24,6 +23,7 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
 
   BackGround bg;
   ScoreDisplay scoreDisplay;
+  HealthBar healthBar;
 
   Size screenSize;
   double tileSize;
@@ -65,6 +65,7 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     enemyController = EnemyController(this);
     bg = BackGround(this);
     scoreDisplay = ScoreDisplay(this);
+    healthBar = HealthBar(this);
 
     joyStick.addObserver(player);
     

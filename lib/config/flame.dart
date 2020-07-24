@@ -19,6 +19,7 @@ class _Flame {
       'ui/restart.png',
       'ui/start.png',
       'ui/game_over.png',
+      'ui/healthbar.png',
       'sprites/player/player.png',
       'sprites/player/player_attack_01.png',
       'sprites/player/player_attack_02.png',

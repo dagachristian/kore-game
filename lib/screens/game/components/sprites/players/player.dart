@@ -6,22 +6,27 @@ import 'package:flame/components/joystick/joystick_component.dart';
 import 'package:flame/components/joystick/joystick_events.dart';
 import 'package:flame/sprite.dart';
 
-import './enemy.dart';
 import './playerAttack.dart';
 
-import '../../view.dart';
-import '../../dankGame.dart';
-import '../../destructable.dart';
+import '../entity.dart';
+import '../enemies/enemy.dart';
 
-class Player extends SpriteComponent with Destructable implements JoystickListener {
+import '../../../view.dart';
+import '../../../dankGame.dart';
+import '../../../destructable.dart';
+
+class Player extends SpriteComponent with Destructable implements JoystickListener, Entity {
   final DankGame game;
 
   final double speed = 230.0;
+  @override
   final double maxHealth = 100.0;
 
   bool isDead = false;
   double damage = 20.0;
   double range = 100.0;
+
+  @override
   double health;
 
   double intensity = 0;
@@ -47,7 +52,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
     health = maxHealth;
     game.activeView == View.gameOver;
     game.spawn([game.gameOverView, game.restartButton]);
-    game.remove([game.joyStick, game.scoreDisplay, game.player]);
+    game.remove([game.joyStick, game.healthBar, game.player]);
   }
 
   @override
@@ -105,4 +110,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
       direction = event.radAngle;
     }
   }
+
+  @override
+  set maxHealth(double _maxHealth) {}
 }

@@ -1,5 +1,5 @@
 import '../dankGame.dart';
-import '../components/sprites/enemy.dart';
+import '../components/sprites/enemies/enemy.dart';
 
 class EnemyController {
   final int maxSpawnInterval = 3000;
