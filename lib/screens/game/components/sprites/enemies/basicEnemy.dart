@@ -3,6 +3,7 @@ import 'package:flame/sprite.dart';
 
 import './enemy.dart';
 import './basicEnemyAttack.dart';
+import './basicEnemyDeath.dart';
 import './enemyHealthBar.dart';
 
 import '../../../destructable.dart';
@@ -37,6 +38,7 @@ class BasicEnemy extends SpriteComponent with Destructable implements Enemy {
     isDead = true;
     health = maxHealth;
     game.score++;
+    game.add(BasicEnemyDeath(game, this));
     game.remove([this, enemyHealthBar]);
   }
 

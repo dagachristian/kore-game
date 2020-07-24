@@ -6,6 +6,7 @@ import 'package:flame/components/joystick/joystick_component.dart';
 import 'package:flame/components/joystick/joystick_events.dart';
 import 'package:flame/sprite.dart';
 
+import './playerDeath.dart';
 import './playerAttack.dart';
 
 import '../entity.dart';
@@ -46,11 +47,18 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
     });
   }
 
+  void respawn() {
+    isDead = false;
+    health = maxHealth;
+    game.spawn([game.player]);
+  }
+
   void died() {
     isDead = true;
     game.enemyController.stop();
     health = maxHealth;
     game.activeView == View.gameOver;
+    game.add(PlayerDeath(game, game.player));
     game.spawn([game.gameOverView, game.restartButton]);
     game.remove([game.joyStick, game.healthBar, game.player]);
   }

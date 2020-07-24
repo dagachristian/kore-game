@@ -28,8 +28,8 @@ class EnemyController {
   }
 
   void killAll() {
-    game.enemies.forEach((Enemy enemy) => enemy.isDead = true);
-    game.remove(game.enemies);
+    game.enemies.forEach((Enemy enemy) => enemy.died());
+    game.enemies = [];
   }
   
   void update(double t) {

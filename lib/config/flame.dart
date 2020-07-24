@@ -23,9 +23,19 @@ class _Flame {
       'sprites/player/player.png',
       'sprites/player/player_attack_01.png',
       'sprites/player/player_attack_02.png',
+      'sprites/player/player_death_01.png',
+      'sprites/player/player_death_02.png',
+      'sprites/player/player_death_03.png',
+      'sprites/player/player_death_04.png',
+      'sprites/player/player_death_05.png',
+      'sprites/player/player_death_06.png',
       'sprites/enemies/basic_enemy.png',
       'sprites/enemies/basic_enemy_attack_01.png',
       'sprites/enemies/basic_enemy_attack_02.png',
+      'sprites/enemies/basic_enemy_death_01.png',
+      'sprites/enemies/basic_enemy_death_02.png',
+      'sprites/enemies/basic_enemy_death_03.png',
+      'sprites/enemies/basic_enemy_death_04.png',
     ]);
 
     Flame.audio.disableLog();

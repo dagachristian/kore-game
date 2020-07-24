@@ -20,12 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            FlatButton(
-              child: Text('Langaw', style: theme.textTheme.headline1),
-              onPressed: () {
-                router.push('/game/langaw');
-              },
-            ),
             SizedBox(height: 20.0),
             FlatButton(
               child: Text('Dank Game', style: theme.textTheme.headline1),
