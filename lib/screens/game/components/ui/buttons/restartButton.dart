@@ -26,7 +26,6 @@ class RestartButton extends SpriteComponent with Tapable, Destructable {
   void onTapDown(TapDownDetails details) {
     game.player.respawn();
     game.enemyController.start();
-    game.spawn([game.healthBar, game.joyStick]);
     game.remove([game.gameOverView, game.restartButton]);
     game.activeView = View.playing;
   }

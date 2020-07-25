@@ -19,9 +19,10 @@ import '../../../destructable.dart';
 class Player extends SpriteComponent with Destructable implements JoystickListener, Mob {
   final DankGame game;
 
-  final double speed = 230.0;
+  final double speed = 300.0;
+  final double moveRange = 150.0;
   @override
-  final double maxHealth = 100.0;
+  final double maxHealth = 150.0;
 
   @override
   bool isDead = false;
@@ -51,7 +52,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
   void respawn() {
     isDead = false;
     health = maxHealth;
-    game.spawn([game.player]);
+    game.spawn([game.player, game.joyStick, game.healthBar]);
   }
 
   void died() {
@@ -70,6 +71,15 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
       died();
     } else if (!isDead) {
       if (_move) {
+        // double r = sqrt(pow((game.size.width - width)/2 - x, 2) + pow((game.size.height - height)/2 - y, 2));
+        // if (r < moveRange) {
+        //   x += intensity * speed * cos(direction) / 100.0;
+        //   y += intensity * speed * sin(direction) / 100.0;
+        // } else {
+        //   game.lvl.x -= speed * cos(direction) / 100.0;
+        //   game.lvl.y -= speed * sin(direction) / 100.0;
+        // }
+
         if (x >= -60 && x <= game.size.width + 10 && y >= -60 && y <= game.size.height + 10) {
           x += intensity * speed * cos(direction) / 100.0;
           y += intensity * speed * sin(direction) / 100.0;
@@ -84,7 +94,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
             y -= game.size.height + 60;
           } else {
             x = (game.size.width - this.width)/2;
-            y = (game.size.width - this.width)/2;
+            y = (game.size.height - this.height)/2;
           }
         }
       }
@@ -96,7 +106,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
   @override
   void resize(Size size) {
     this.x = (size.width - this.width)/2;
-    this.y = (size.width - this.width)/2;
+    this.y = (size.height - this.height)/2;
 
     super.resize(size);
   }

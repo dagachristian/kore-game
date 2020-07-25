@@ -12,7 +12,6 @@ import './view.dart';
 import './views/index.dart';
 
 import './components/sprites/players/index.dart';
-import './components/sprites/enemies/index.dart';
 
 import './components/ui/index.dart';
 
@@ -22,6 +21,7 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   Random r;
 
   BackGround bg;
+  LevelOne lvl;
   ScoreDisplay scoreDisplay;
   HealthBar healthBar;
 
@@ -62,6 +62,7 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     
     enemyController = EnemyController(this);
     bg = BackGround(this);
+    lvl = LevelOne(this);
     scoreDisplay = ScoreDisplay(this);
     healthBar = HealthBar(this);
 

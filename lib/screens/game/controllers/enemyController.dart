@@ -69,7 +69,7 @@ class EnemyController {
   void spawnEnemy() {
     Enemy enemy;
     int spawnedEnemy = r.nextInt(100);
-    double rareEnemyChance = currentInterval / maxSpawnInterval * rareEnemyMaxChance;
+    double rareEnemyChance = minSpawnInterval / currentInterval * rareEnemyMaxChance;
     if (spawnedEnemy < rareEnemyChance || spawnedEnemy < rareEnemyMinChance) {
       enemy = RareEnemy(game);
     } else {
