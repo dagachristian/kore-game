@@ -59,6 +59,7 @@ flutter:
   - assets/images/
   - assets/images/bg/
   - assets/images/ui/
+  - assets/images/items/
   - assets/images/branding/
   - assets/images/sprites/
   - assets/images/sprites/player/

@@ -22,8 +22,6 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
 
   BackGround bg;
   Level lvl;
-  ScoreDisplay scoreDisplay;
-  HealthBar healthBar;
 
   Size screenSize;
   double tileSize;
@@ -37,7 +35,11 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   HomeView homeView;
   GameOverView gameOverView;
 
+  ScoreDisplay scoreDisplay;
+  HealthBar healthBar;
   JoyStick joyStick;
+  ItemBar itemBar;
+
   StartButton startButton;
   RestartButton restartButton;
 
@@ -57,6 +59,7 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     gameOverView = GameOverView(this);
 
     joyStick = JoyStick(this);
+    itemBar = ItemBar(this);
     startButton = StartButton(this);
     restartButton = RestartButton(this);
     

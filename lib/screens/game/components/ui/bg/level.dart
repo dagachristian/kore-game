@@ -6,4 +6,5 @@ abstract class Level extends SpriteComponent with Destructable {
   void moveX(double x);
   void moveY(double y);
   void addChild(SpriteComponent child);
+  void removeChild(SpriteComponent child);
 }

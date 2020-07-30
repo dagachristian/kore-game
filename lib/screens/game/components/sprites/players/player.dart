@@ -5,6 +5,7 @@ import 'package:flame/components/component.dart';
 import 'package:flame/components/joystick/joystick_component.dart';
 import 'package:flame/components/joystick/joystick_events.dart';
 import 'package:flame/sprite.dart';
+import 'package:kore_game/screens/game/components/items/index.dart';
 
 import './playerAnimation.dart';
 
@@ -71,7 +72,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
   void respawn() {
     isDead = false;
     health = maxHealth;
-    game.spawn([game.player, game.joyStick, game.healthBar]);
+    game.spawn([game.player, game.joyStick, game.itemBar, game.healthBar]);
   }
 
   @override
@@ -82,7 +83,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
     game.activeView == View.gameOver;
     game.add(PlayerAnimation(game.player, deathAnim));
     game.spawn([game.gameOverView, game.restartButton]);
-    game.remove([game.joyStick, game.healthBar, game.player]);
+    game.remove([game.joyStick, game.itemBar, game.healthBar, game.player]);
   }
 
   @override
@@ -94,21 +95,13 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
 
   @override
   void update(double t) {
-    if (!isDead && (health == null) ? false: health <= 0) {
-      died();
-    } else if (!isDead) {
-      if (_move) {
+    if (!isDead) {
+      if ((health == null) ? false: health > maxHealth) health = maxHealth;
+      if ((health == null) ? false: health <= 0) {
+        died();
+      } else if (_move) {
         double centerY = game.size.height - height;
         double centerX = game.size.width - width;
-
-        // double r = sqrt(pow(centerX/2 - x, 2) + pow(centerY/2 - y, 2));
-        // if (r < moveRange) {
-        //   x += intensity * speed * cos(direction) / 100.0;
-        //   y += intensity * speed * sin(direction) / 100.0;
-        // } else {
-        //   game.lvl.x -= speed * cos(direction) / 100.0;
-        //   game.lvl.y -= speed * sin(direction) / 100.0;
-        // }
 
         // blaaaaaarrggg maths not good
         if (game.lvl.y - speed * sin(direction) / 100.0 <= 0 && game.lvl.y - speed * sin(direction) / 100.0 >= -game.lvl.height + game.size.height && (y > centerY / 2 - 5) && (y < centerY / 2 + 5)) {
@@ -141,6 +134,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
         // }
       }
     }
+    
     
     super.update(t);
   }

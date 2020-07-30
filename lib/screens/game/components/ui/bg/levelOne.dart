@@ -1,5 +1,6 @@
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
+import 'package:kore_game/screens/game/components/items/index.dart';
 import 'package:kore_game/screens/game/components/ui/index.dart';
 import 'package:kore_game/screens/game/dankGame.dart';
 import 'package:kore_game/screens/game/destructable.dart';
@@ -8,7 +9,7 @@ class LevelOne extends SpriteComponent with Destructable implements Level {
   DankGame game;
   List<SpriteComponent> children;
 
-  LevelOne(this.game) : super.fromSprite(5000.0, 5000.0, Sprite('bg/level_01.jpg'));
+  LevelOne(this.game) : super.fromSprite(5500.0, 5500.0, Sprite('bg/level_01.jpg'));
 
   @override
   void reset() {
@@ -17,6 +18,18 @@ class LevelOne extends SpriteComponent with Destructable implements Level {
     children = [];
     game.enemyController.killAll();
     game.enemyController.populateMapWithEnemies(game.lvl, 40);
+    // itemController
+
+    BasicHeal basicHeal = BasicHeal(game);
+    basicHeal.x = 100;
+    basicHeal.y = 100;
+    game.spawn([basicHeal]);
+    children.add(basicHeal);
+    BasicHeal basicHeal2 = BasicHeal(game);
+    basicHeal2.x = 150;
+    basicHeal2.y = 150;
+    game.spawn([basicHeal2]);
+    children.add(basicHeal2);
   }
 
   @override
@@ -34,5 +47,10 @@ class LevelOne extends SpriteComponent with Destructable implements Level {
   @override
   void addChild(SpriteComponent child) {
     children.add(child);
+  }
+
+  @override
+  void removeChild(SpriteComponent child) {
+    children.remove(child);
   }
 }

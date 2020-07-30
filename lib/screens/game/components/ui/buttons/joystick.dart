@@ -11,12 +11,12 @@ class JoyStick extends JoystickComponent with Destructable {
 
   JoyStick(this.game) : super(componentPriority: 0,
     directional: JoystickDirectional(
-      margin: EdgeInsets.fromLTRB(game.size.width * 4/5, game.size.height * 4/5, game.size.width * 1/10, game.size.height * 1/10)
+      margin: EdgeInsets.fromLTRB(game.size.width * 1/10, game.size.height * 4/5, game.size.width * 4/5, game.size.height * 1/10)
     ),
     actions: [
       JoystickAction(
         actionId: 1,
-        margin: EdgeInsets.fromLTRB(game.size.width * 1/10, game.size.height * 4/5, game.size.width * 4/5, game.size.height * 1/10)
+        margin: EdgeInsets.fromLTRB(game.size.width * 4/5, game.size.height * 4/5, game.size.width * 1/10, game.size.height * 1/10)
       )
   ]);
 }

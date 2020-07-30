@@ -45,7 +45,7 @@ class SlavBoss extends Enemy with Destructable {
 
   @override
   void update(double t) {
-    if (DateTime.now().millisecondsSinceEpoch % 5000 < 50 && aggro) {
+    if (DateTime.now().millisecondsSinceEpoch % 5000 < 50 && aggro && !game.player.isDead) {
       game.enemyController.spawnEnemy(BasicEnemy(game), x + width/2, y + height*2/3);
     }
     super.update(t);
@@ -121,7 +121,7 @@ class SlavBossEvil extends Enemy with Destructable {
 
   @override
   void update(double t) {
-    if (DateTime.now().millisecondsSinceEpoch % 5000 < 50 && aggro) {
+    if (DateTime.now().millisecondsSinceEpoch % 5000 < 50 && aggro && !game.player.isDead) {
       game.enemyController.spawnEnemy(RareEnemy(game), x + width/2, y + height*2/3);
     }
     super.update(t);
