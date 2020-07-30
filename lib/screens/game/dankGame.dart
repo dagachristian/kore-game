@@ -7,18 +7,14 @@ import 'package:flame/game/base_game.dart';
 import 'package:flame/gestures.dart';
 
 import './destructable.dart';
-
-import './view.dart';
 import './views/index.dart';
-
 import './components/sprites/players/index.dart';
-
 import './components/ui/index.dart';
-
-import './controllers/enemyController.dart';
+import './controllers/index.dart';
 
 class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponents {
   Random r;
+  bool paused;
 
   BackGround bg;
   Level lvl;
@@ -31,7 +27,6 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
 
   EnemyController enemyController;
 
-  View activeView = View.home;
   HomeView homeView;
   GameOverView gameOverView;
 
@@ -42,6 +37,9 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
 
   StartButton startButton;
   RestartButton restartButton;
+  BackButton backButton;
+  PauseButton pauseButton;
+  HomeButton homeButton;
 
   DankGame() {
     initialize();
@@ -49,6 +47,7 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
 
   void initialize() async {
     r = Random();
+    paused = false;
     super.resize(await Flame.util.initialDimensions());
 
     score = 0;
@@ -62,6 +61,9 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     itemBar = ItemBar(this);
     startButton = StartButton(this);
     restartButton = RestartButton(this);
+    backButton = BackButton(this);
+    pauseButton = PauseButton(this);
+    homeButton = HomeButton(this);
     
     enemyController = EnemyController(this);
     bg = BackGround(this);
@@ -99,9 +101,11 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
 
   @override
   void update(double t) {
-    enemyController.update(t);
+    if (!paused) {
+      enemyController.update(t);
 
-    super.update(t);
+      super.update(t);
+    }
   }
 
   @override

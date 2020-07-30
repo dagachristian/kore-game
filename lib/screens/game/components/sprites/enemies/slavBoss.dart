@@ -57,7 +57,9 @@ class SlavBoss extends Enemy with Destructable {
       isDead = true;
       health = maxHealth;
       game.remove([this, enemyHealthBar]);
-      game.enemyController.spawnEnemy(SlavBossEvil(game), x, y);
+      if (!game.player.isDead) {
+        game.enemyController.spawnEnemy(SlavBossEvil(game), x, y);
+      }
     }
   }
 

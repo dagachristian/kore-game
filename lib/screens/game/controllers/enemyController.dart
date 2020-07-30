@@ -1,9 +1,8 @@
 import 'dart:math';
 
-import 'package:kore_game/screens/game/components/ui/index.dart';
-
 import '../dankGame.dart';
 import '../components/sprites/enemies/index.dart';
+import '../components/ui/index.dart';
 
 class EnemyController {
   Random r;
@@ -21,8 +20,6 @@ class EnemyController {
   int nextSpawn;
   bool stopped;
   List<Enemy> enemies;
-
-  
 
   EnemyController(this.game) {
     stopped = true;

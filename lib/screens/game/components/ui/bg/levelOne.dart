@@ -1,9 +1,11 @@
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
-import 'package:kore_game/screens/game/components/items/index.dart';
-import 'package:kore_game/screens/game/components/ui/index.dart';
-import 'package:kore_game/screens/game/dankGame.dart';
-import 'package:kore_game/screens/game/destructable.dart';
+
+import '../../items/index.dart';
+import '../../ui/index.dart';
+
+import '../../../dankGame.dart';
+import '../../../destructable.dart';
 
 class LevelOne extends SpriteComponent with Destructable implements Level {
   DankGame game;
@@ -50,7 +52,17 @@ class LevelOne extends SpriteComponent with Destructable implements Level {
   }
 
   @override
+  void addChildren(List<SpriteComponent> childs) {
+    children.addAll(childs);
+  }
+
+  @override
   void removeChild(SpriteComponent child) {
     children.remove(child);
+  }
+
+  @override
+  void removeAll() {
+    children = [];
   }
 }

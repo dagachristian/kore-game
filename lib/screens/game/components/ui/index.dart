@@ -7,3 +7,6 @@ export './hud/itemBar.dart';
 export './buttons/joystick.dart';
 export './buttons/startButton.dart';
 export './buttons/restartButton.dart';
+export './buttons/backButton.dart';
+export './buttons/pauseButton.dart';
+export './buttons/homeButton.dart';

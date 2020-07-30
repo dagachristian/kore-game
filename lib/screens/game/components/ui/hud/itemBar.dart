@@ -4,10 +4,12 @@ import 'package:flame/components/component.dart';
 import 'package:flame/components/mixins/tapable.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
-import 'package:kore_game/screens/game/components/items/index.dart';
-import 'package:kore_game/screens/game/components/items/item.dart';
-import 'package:kore_game/screens/game/dankGame.dart';
-import 'package:kore_game/screens/game/destructable.dart';
+
+import '../../items/index.dart';
+import '../../items/item.dart';
+
+import '../../../dankGame.dart';
+import '../../../destructable.dart';
 
 class ItemBar extends SpriteComponent with Tapable, Destructable {
   final DankGame game;
@@ -38,12 +40,17 @@ class ItemBar extends SpriteComponent with Tapable, Destructable {
 
   @override
   void onTapDown(TapDownDetails details) {
-    currentItem.use();
+    if (currentItem != null) {
+      currentItem.use();
+    }
   }
 
   @override
   void onDestroy() {
-    game.remove([currentItem]);
+    if (currentItem != null) {
+      game.remove([currentItem]);
+    }
+    currentItem = null;
     super.onDestroy();
   }
 }

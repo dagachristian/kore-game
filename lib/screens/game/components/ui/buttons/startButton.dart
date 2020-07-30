@@ -5,7 +5,6 @@ import 'package:flame/components/mixins/tapable.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
 
-import '../../../view.dart';
 import '../../../dankGame.dart';
 import '../../../destructable.dart';
 
@@ -28,6 +27,5 @@ class StartButton extends SpriteComponent with Tapable, Destructable {
     game.remove([game.homeView, game.startButton, game.bg]);
     game.player.respawn();
     game.lvl.reset();
-    game.activeView = View.playing;
   }
 }

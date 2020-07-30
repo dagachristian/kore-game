@@ -3,8 +3,9 @@ import 'package:flame/components/mixins/tapable.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
-import 'package:kore_game/screens/game/dankGame.dart';
-import 'package:kore_game/screens/game/destructable.dart';
+
+import '../../dankGame.dart';
+import '../../destructable.dart';
 
 abstract class Item extends SpriteComponent with Destructable, Tapable {
   final DankGame game;

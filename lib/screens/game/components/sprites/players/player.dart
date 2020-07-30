@@ -5,14 +5,12 @@ import 'package:flame/components/component.dart';
 import 'package:flame/components/joystick/joystick_component.dart';
 import 'package:flame/components/joystick/joystick_events.dart';
 import 'package:flame/sprite.dart';
-import 'package:kore_game/screens/game/components/items/index.dart';
 
 import './playerAnimation.dart';
 
 import '../mob.dart';
 import '../enemies/enemy.dart';
 
-import '../../../view.dart';
 import '../../../dankGame.dart';
 import '../../../destructable.dart';
 
@@ -72,7 +70,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
   void respawn() {
     isDead = false;
     health = maxHealth;
-    game.spawn([game.player, game.joyStick, game.itemBar, game.healthBar]);
+    game.spawn([game.player, game.joyStick, game.itemBar, game.healthBar, game.pauseButton]);
   }
 
   @override
@@ -80,10 +78,9 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
     isDead = true;
     game.enemyController.stop();
     health = maxHealth;
-    game.activeView == View.gameOver;
     game.add(PlayerAnimation(game.player, deathAnim));
-    game.spawn([game.gameOverView, game.restartButton]);
-    game.remove([game.joyStick, game.itemBar, game.healthBar, game.player]);
+    game.spawn([game.gameOverView, game.restartButton, game.backButton]);
+    game.remove([game.joyStick, game.itemBar, game.healthBar, game.pauseButton, game.player]);
   }
 
   @override
@@ -149,7 +146,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
 
   @override
   void joystickAction(JoystickActionEvent event) {
-    if (!isDead) {
+    if (!isDead && !game.paused) {
       if (event.event == ActionEvent.DOWN) {
         attack();
       }
@@ -160,7 +157,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
   void joystickChangeDirectional(JoystickDirectionalEvent event) {
     _move = event.directional != JoystickMoveDirectional.IDLE;
 
-    if (_move) {
+    if (_move && !game.paused) {
       intensity = event.intensity;
       direction = event.radAngle;
     }
