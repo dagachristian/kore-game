@@ -4,19 +4,15 @@ import 'package:flame/animation.dart';
 import 'package:flame/components/animation_component.dart';
 import 'package:flame/sprite.dart';
 
-import './player.dart';
+import 'player.dart';
 
-class PlayerAttack extends AnimationComponent {
+class PlayerAnimation extends AnimationComponent {
   final Player player;
 
   @override
   final bool destroyOnFinish = true;
 
-  PlayerAttack(this.player) : super(player.width, player.height, Animation.spriteList(<Sprite>[
-    Sprite('sprites/player/player_attack_01.png'),
-    Sprite('sprites/player/player_attack_02.png'),
-    Sprite('sprites/player/player.png')
-  ], stepTime: 0.25, loop: false));
+  PlayerAnimation(this.player, List<Sprite> anim) : super(player.width, player.height, Animation.spriteList(anim, stepTime: 0.2, loop: false));
 
   @override
   void resize(Size size) {
@@ -29,5 +25,11 @@ class PlayerAttack extends AnimationComponent {
     x = player.x;
     y = player.y;
     super.update(t);
+  }
+
+  @override
+  void onDestroy() {
+    player.attacking = false;
+    super.onDestroy();
   }
 }

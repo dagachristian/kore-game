@@ -1,7 +1,9 @@
 export './bg/background.dart';
+export './bg/level.dart';
 export './bg/levelOne.dart';
 export './hud/score.dart';
 export './hud/healthBar.dart';
+export './hud/itemBar.dart';
 export './buttons/joystick.dart';
 export './buttons/startButton.dart';
 export './buttons/restartButton.dart';

@@ -1,9 +1,9 @@
 import 'dart:math';
 
+import 'package:kore_game/screens/game/components/ui/index.dart';
+
 import '../dankGame.dart';
-import '../components/sprites/enemies/enemy.dart';
 import '../components/sprites/enemies/index.dart';
-import '../components/sprites/enemies/rareEnemy.dart';
 
 class EnemyController {
   Random r;
@@ -56,7 +56,7 @@ class EnemyController {
       });
 
       if (nowTimestamp >= nextSpawn && livingEnemies < maxEnemies) {
-        spawnEnemy();
+        spawnRandEnemy();
         if (currentInterval > minSpawnInterval) {
           currentInterval -= intervalChange;
           currentInterval -= (currentInterval * .02).toInt();
@@ -66,7 +66,7 @@ class EnemyController {
     }
   }
 
-  void spawnEnemy() {
+  void spawnRandEnemy() {
     Enemy enemy;
     int spawnedEnemy = r.nextInt(100);
     double rareEnemyChance = minSpawnInterval / currentInterval * rareEnemyMaxChance;
@@ -91,7 +91,37 @@ class EnemyController {
         enemy.y -= game.size.height;
         break;
     }
+    game.lvl.addChild(enemy);
     enemies.add(enemy);
+    game.spawn([enemy]);
+  }
+
+  void populateMapWithEnemies(Level lvl, int amount) {
+    for (int i=0;i<amount;i++) {
+      Enemy enemy;
+      if (r.nextInt(100) < rareEnemyMinChance) {
+        enemy = RareEnemy(game);
+      } else {
+        enemy = BasicEnemy(game);
+      }
+      enemy.x = r.nextInt(lvl.width.toInt()).toDouble();
+      enemy.y = r.nextInt(lvl.height.toInt()).toDouble();
+      enemies.add(enemy);
+      game.lvl.addChild(enemy);
+    }
+    Enemy boss = SlavBoss(game);
+    boss.x = lvl.width * 9/10;
+    boss.y = lvl.height * 4/5;
+    enemies.add(boss);
+    game.lvl.addChild(boss);
+    game.spawn(enemies);
+  }
+
+  void spawnEnemy(Enemy enemy, double x, double y) {
+    enemy.x = x;
+    enemy.y = y;
+    enemies.add(enemy);
+    game.lvl.addChild(enemy);
     game.spawn([enemy]);
   }
 }

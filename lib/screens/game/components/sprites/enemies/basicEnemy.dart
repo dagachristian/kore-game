@@ -15,7 +15,8 @@ class BasicEnemy extends Enemy with Destructable {
     maxHealth: 50.0, 
     damage: 50.0, 
     range: 50.0, 
-    attackSpeed: 1, 
+    attackSpeed: 1,
+    aggroRange: game.size.width,
     attackAnim: <Sprite>[
       Sprite('sprites/enemies/basic_enemy_attack_01.png'),
       Sprite('sprites/enemies/basic_enemy_attack_02.png'),

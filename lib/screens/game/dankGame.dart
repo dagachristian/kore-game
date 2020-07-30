@@ -21,7 +21,7 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   Random r;
 
   BackGround bg;
-  LevelOne lvl;
+  Level lvl;
   ScoreDisplay scoreDisplay;
   HealthBar healthBar;
 

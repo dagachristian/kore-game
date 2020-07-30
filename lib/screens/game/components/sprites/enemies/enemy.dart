@@ -1,5 +1,6 @@
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 import './enemyHealthBar.dart';
@@ -16,15 +17,22 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
 
   @override
   bool isDead = false;
-  final double speed;
+  @override
+  double speed;
   @override
   double maxHealth;
-  final double damage;
-  final double range;
+  @override
+  double damage;
+  @override
+  double range;
   final double attackSpeed;
+  final double aggroRange;
 
   @override
   double health;
+  @override
+  bool attacking = false;
+  bool aggro = false;
 
   final List<Sprite> attackAnim;
   final List<Sprite> deathAnim;
@@ -50,6 +58,8 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
       @required
       this.attackSpeed,
       @required
+      this.aggroRange,
+      @required
       this.attackAnim,
       @required
       this.deathAnim
@@ -60,6 +70,7 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
     game.add(enemyHealthBar);
   }
 
+  @override
   void died() {
     if (!isDead) {
       isDead = true;
@@ -70,23 +81,37 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
   }
 
   @override
-  void update(double t) {
-    if (!isDead && health <= 0) {
-      died();
-    } else if (!isDead) {
-      x += (game.player.x - x) / (10000/speed);
-      y += (game.player.y - y) / (10000/speed);
+  void render(Canvas c) {
+    if (!attacking) {
+      super.render(c);
+    }
+  }
 
-      if ((game.player.x - x).abs() < range && (game.player.y - y).abs() < range) {
-        attack();
+  @override
+  void update(double t) {
+    if (!isDead) {
+      if (health <= 0) {
+        died();
+      } else {
+        if (((game.player.x + game.player.width/2) - (x + width/2)).abs() < range && ((game.player.y + game.player.height/2) - (y + height/2)).abs() < range && !attacking) {
+          attack();
+        } else if (((game.player.x + game.player.width/2) - (x + width/2)).abs() < aggroRange && ((game.player.y + game.player.height/2) - (y + height/2)).abs() < aggroRange) {
+          aggro = true;
+          x += ((game.player.x + game.player.width/2) - (x + width/2)) / (10000/speed);
+          y += ((game.player.y + game.player.height/2) - (y + height/2)) / (10000/speed);
+        } else {
+          aggro = false;
+        }
       }
     }
 
     super.update(t);
   }
 
+  @override
   void attack() {
     if (DateTime.now().millisecondsSinceEpoch % (1000 / attackSpeed) < 50) {
+      attacking = true;
       game.add(EnemyAnimation(this, attackAnim));
       game.player.health -= damage / 10;
     } 

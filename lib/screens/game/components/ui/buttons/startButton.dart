@@ -27,7 +27,7 @@ class StartButton extends SpriteComponent with Tapable, Destructable {
     game.spawn([game.lvl]);
     game.remove([game.homeView, game.startButton, game.bg]);
     game.player.respawn();
-    game.enemyController.start();
+    game.lvl.reset();
     game.activeView = View.playing;
   }
 }

@@ -12,7 +12,7 @@ class EnemyAnimation extends AnimationComponent {
   @override
   final bool destroyOnFinish = true;
 
-  EnemyAnimation(this.enemy, List<Sprite> sprites) : super(enemy.width, enemy.height, Animation.spriteList(sprites, stepTime: 0.2, loop: false));
+  EnemyAnimation(this.enemy, List<Sprite> sprites, [double stepTime]) : super(enemy.width, enemy.height, Animation.spriteList(sprites, stepTime: stepTime ?? 0.2, loop: false));
 
   @override
   void resize(Size size) {
@@ -25,5 +25,11 @@ class EnemyAnimation extends AnimationComponent {
     x = enemy.x;
     y = enemy.y;
     super.update(t);
+  }
+
+  @override
+  void onDestroy() {
+    enemy.attacking = false;
+    super.onDestroy();
   }
 }
