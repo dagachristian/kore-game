@@ -83,6 +83,25 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
     game.remove([game.joyStick, game.itemBar, game.healthBar, game.pauseButton, game.player]);
   }
 
+  void move() {
+    if (!game.barrier.collide(game.player, intensity * speed * cos(direction) / 100.0, intensity * speed * sin(direction) / 100.0)) {
+      double centerY = game.size.height - height;
+      double centerX = game.size.width - width;
+
+      // blaaaaaarrggg maths not good
+      if (game.lvl.y - speed * sin(direction) / 100.0 <= 0 && game.lvl.y - speed * sin(direction) / 100.0 >= -game.lvl.height + game.size.height && (y > centerY / 2 - 5) && (y < centerY / 2 + 5)) {
+        game.lvl.moveY(-speed * sin(direction) / 100.0);
+      } else if (y + intensity * speed * sin(direction) / 100.0 >= 0 && y + intensity * speed * sin(direction) / 100.0 <= game.size.height - height) {
+        y += intensity * speed * sin(direction) / 100.0;
+      }
+      if (game.lvl.x - speed * cos(direction) / 100.0 <= 0 && game.lvl.x - speed * cos(direction) / 100.0 >= -game.lvl.width + game.size.width && (x > centerX / 2 - 5) && (x < centerX / 2 + 5)) {
+        game.lvl.moveX(-speed * cos(direction) / 100.0);
+      } else if (x + intensity * speed * cos(direction) / 100.0 >= 0 && x + intensity * speed * cos(direction) / 100.0 <= game.size.width - width) {
+        x += intensity * speed * cos(direction) / 100.0;
+      }
+    }
+  }
+
   @override
   void render(Canvas c) {
     if (!attacking) {
@@ -97,20 +116,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
       if ((health == null) ? false: health <= 0) {
         died();
       } else if (_move) {
-        double centerY = game.size.height - height;
-        double centerX = game.size.width - width;
-
-        // blaaaaaarrggg maths not good
-        if (game.lvl.y - speed * sin(direction) / 100.0 <= 0 && game.lvl.y - speed * sin(direction) / 100.0 >= -game.lvl.height + game.size.height && (y > centerY / 2 - 5) && (y < centerY / 2 + 5)) {
-          game.lvl.moveY(-speed * sin(direction) / 100.0);
-        } else if (y + intensity * speed * sin(direction) / 100.0 >= 0 && y + intensity * speed * sin(direction) / 100.0 <= game.size.height - height) {
-          y += intensity * speed * sin(direction) / 100.0;
-        }
-        if (game.lvl.x - speed * cos(direction) / 100.0 <= 0 && game.lvl.x - speed * cos(direction) / 100.0 >= -game.lvl.width + game.size.width && (x > centerX / 2 - 5) && (x < centerX / 2 + 5)) {
-          game.lvl.moveX(-speed * cos(direction) / 100.0);
-        } else if (x + intensity * speed * cos(direction) / 100.0 >= 0 && x + intensity * speed * cos(direction) / 100.0 <= game.size.width - width) {
-          x += intensity * speed * cos(direction) / 100.0;
-        }
+        move();
 
         // if (x >= -60 && x <= game.size.width + 10 && y >= -60 && y <= game.size.height + 10) {
         //   x += intensity * speed * cos(direction) / 100.0;
@@ -131,7 +137,6 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
         // }
       }
     }
-    
     
     super.update(t);
   }

@@ -1,6 +1,6 @@
 export './bg/background.dart';
 export './bg/level.dart';
-export './bg/levelOne.dart';
+export 'bg/levelOne/levelOne.dart';
 export './hud/score.dart';
 export './hud/healthBar.dart';
 export './hud/itemBar.dart';

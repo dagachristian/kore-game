@@ -14,6 +14,8 @@ class _Flame {
     await Flame.images.loadAll(<String>[
       'bg/background.jpg',
       'bg/level_01.jpg',
+      'bg/watchtower.png',
+      'bg/wall.png',
 
       'branding/logo.png',
       'branding/spritesheet.png',

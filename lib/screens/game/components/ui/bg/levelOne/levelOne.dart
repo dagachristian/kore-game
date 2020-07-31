@@ -1,17 +1,32 @@
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
 
-import '../../items/index.dart';
-import '../../ui/index.dart';
+import './courtyard.dart';
 
-import '../../../dankGame.dart';
-import '../../../destructable.dart';
+import '../../index.dart';
+
+import '../../../items/index.dart';
+
+import '../../../../dankGame.dart';
+import '../../../../destructable.dart';
+
 
 class LevelOne extends SpriteComponent with Destructable implements Level {
   DankGame game;
   List<SpriteComponent> children;
 
-  LevelOne(this.game) : super.fromSprite(5500.0, 5500.0, Sprite('bg/level_01.jpg'));
+  Wall1 wall1;
+  Wall2 wall2;
+  WatchTower1 watchTower1;
+  WatchTower2 watchTower2;
+
+  LevelOne(this.game) : super.fromSprite(5500.0, 5500.0, Sprite('bg/level_01.jpg')) {
+    children = [];
+    wall1 = Wall1(this);
+    wall2 = Wall2(this);
+    watchTower1 = WatchTower1(this);
+    watchTower2 = WatchTower2(this);
+  }
 
   @override
   void reset() {
@@ -21,17 +36,18 @@ class LevelOne extends SpriteComponent with Destructable implements Level {
     game.enemyController.killAll();
     game.enemyController.populateMapWithEnemies(game.lvl, 40);
     // itemController
-
     BasicHeal basicHeal = BasicHeal(game);
     basicHeal.x = 100;
     basicHeal.y = 100;
     game.spawn([basicHeal]);
     children.add(basicHeal);
     BasicHeal basicHeal2 = BasicHeal(game);
-    basicHeal2.x = 150;
-    basicHeal2.y = 150;
+    basicHeal2.x = 50;
+    basicHeal2.y = 50;
     game.spawn([basicHeal2]);
     children.add(basicHeal2);
+
+    game.spawn([wall1, wall2, watchTower1, watchTower2]);
   }
 
   @override
@@ -64,5 +80,11 @@ class LevelOne extends SpriteComponent with Destructable implements Level {
   @override
   void removeAll() {
     children = [];
+  }
+
+  @override
+  void onDestroy() {
+    game.remove([wall1, wall2, watchTower1, watchTower2]);
+    super.onDestroy();
   }
 }

@@ -6,6 +6,7 @@ import 'package:flame/flame.dart';
 import 'package:flame/game/base_game.dart';
 import 'package:flame/gestures.dart';
 
+import './barrier.dart';
 import './destructable.dart';
 import './views/index.dart';
 import './components/sprites/players/index.dart';
@@ -15,6 +16,7 @@ import './controllers/index.dart';
 class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponents {
   Random r;
   bool paused;
+  Barrier barrier;
 
   BackGround bg;
   Level lvl;
@@ -48,6 +50,7 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   void initialize() async {
     r = Random();
     paused = false;
+    barrier = Barrier();
     super.resize(await Flame.util.initialDimensions());
 
     score = 0;
