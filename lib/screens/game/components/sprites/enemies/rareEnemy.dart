@@ -29,6 +29,7 @@ class RareEnemy extends Enemy with Destructable {
       Sprite('sprites/enemies/rare_enemy_death_02.png'),
       Sprite('sprites/enemies/rare_enemy_death_03.png'),
       Sprite('sprites/enemies/rare_enemy_death_04.png'),
-    ]
+    ],
+    spawnChance: 10,
   );
 }

@@ -36,6 +36,7 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
 
   final List<Sprite> attackAnim;
   final List<Sprite> deathAnim;
+  final int spawnChance;
 
   Enemy(
     {
@@ -62,7 +63,8 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
       @required
       this.attackAnim,
       @required
-      this.deathAnim
+      this.deathAnim,
+      this.spawnChance = 0
     }
   ) : super.fromSprite(width, height, sprite) {
     health = maxHealth;
@@ -87,6 +89,13 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
     }
   }
 
+  void move() {
+    if (!game.barrier.collide(this, ((game.player.x + game.player.width/2) - (x + width/2)) / (10000/speed), ((game.player.y + game.player.height/2) - (y + height/2)) / (10000/speed))) {
+      x += ((game.player.x + game.player.width/2) - (x + width/2)) / (10000/speed);
+      y += ((game.player.y + game.player.height/2) - (y + height/2)) / (10000/speed);
+    }
+  }
+
   @override
   void update(double t) {
     if (!isDead) {
@@ -97,8 +106,7 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
           attack();
         } else if (((game.player.x + game.player.width/2) - (x + width/2)).abs() < aggroRange && ((game.player.y + game.player.height/2) - (y + height/2)).abs() < aggroRange) {
           aggro = true;
-          x += ((game.player.x + game.player.width/2) - (x + width/2)) / (10000/speed);
-          y += ((game.player.y + game.player.height/2) - (y + height/2)) / (10000/speed);
+          move();
         } else {
           aggro = false;
         }

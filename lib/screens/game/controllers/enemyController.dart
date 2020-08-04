@@ -107,8 +107,8 @@ class EnemyController {
       game.lvl.addChild(enemy);
     }
     Enemy boss = SlavBoss(game);
-    boss.x = lvl.width * 9/10;
-    boss.y = lvl.height * 4/5;
+    boss.x = lvl.width * 19/20;
+    boss.y = lvl.height * 14/20;
     enemies.add(boss);
     game.lvl.addChild(boss);
     game.spawn(enemies);

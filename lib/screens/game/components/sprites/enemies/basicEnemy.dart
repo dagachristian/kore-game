@@ -27,6 +27,6 @@ class BasicEnemy extends Enemy with Destructable {
       Sprite('sprites/enemies/basic_enemy_death_02.png'),
       Sprite('sprites/enemies/basic_enemy_death_03.png'),
       Sprite('sprites/enemies/basic_enemy_death_04.png'),
-    ]
+    ],
   );
 }

@@ -30,6 +30,11 @@ class ItemBar extends SpriteComponent with Tapable, Destructable {
     item.y = y + 5;
   }
 
+  void dequipItem(Item item) {
+    game.remove([currentItem]);
+    currentItem = null;
+  }
+
   @override
   void resize(Size size) {
     this.x = (size.width - this.width) * 9/10;

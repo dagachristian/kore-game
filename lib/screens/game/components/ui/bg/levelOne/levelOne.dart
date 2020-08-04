@@ -1,27 +1,18 @@
-import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
 
 import './courtyard.dart';
 
 import '../../index.dart';
 
-import '../../../items/index.dart';
-
 import '../../../../dankGame.dart';
-import '../../../../destructable.dart';
 
-
-class LevelOne extends SpriteComponent with Destructable implements Level {
-  DankGame game;
-  List<SpriteComponent> children;
-
+class LevelOne extends Level {
   Wall1 wall1;
   Wall2 wall2;
   WatchTower1 watchTower1;
   WatchTower2 watchTower2;
 
-  LevelOne(this.game) : super.fromSprite(5500.0, 5500.0, Sprite('bg/level_01.jpg')) {
-    children = [];
+  LevelOne(DankGame game) : super(game, width: 5500.0, height: 5500.0, sprite: Sprite('bg/level_01.jpg')) {
     wall1 = Wall1(this);
     wall2 = Wall2(this);
     watchTower1 = WatchTower1(this);
@@ -30,56 +21,13 @@ class LevelOne extends SpriteComponent with Destructable implements Level {
 
   @override
   void reset() {
-    x = 0;
-    y = 0;
-    children = [];
-    game.enemyController.killAll();
+    super.reset();
+
     game.enemyController.populateMapWithEnemies(game.lvl, 40);
-    // itemController
-    BasicHeal basicHeal = BasicHeal(game);
-    basicHeal.x = 100;
-    basicHeal.y = 100;
-    game.spawn([basicHeal]);
-    children.add(basicHeal);
-    BasicHeal basicHeal2 = BasicHeal(game);
-    basicHeal2.x = 50;
-    basicHeal2.y = 50;
-    game.spawn([basicHeal2]);
-    children.add(basicHeal2);
+    game.itemController.populateMapWithItems(game.lvl, [], 10);
 
     game.spawn([wall1, wall2, watchTower1, watchTower2]);
-  }
-
-  @override
-  void moveX(double x) {
-    this.x += x;
-    children.forEach((SpriteComponent c) => c.x += x);
-  }
-
-  @override
-  void moveY(double y) {
-    this.y += y;
-    children.forEach((SpriteComponent c) => c.y += y);
-  }
-
-  @override
-  void addChild(SpriteComponent child) {
-    children.add(child);
-  }
-
-  @override
-  void addChildren(List<SpriteComponent> childs) {
-    children.addAll(childs);
-  }
-
-  @override
-  void removeChild(SpriteComponent child) {
-    children.remove(child);
-  }
-
-  @override
-  void removeAll() {
-    children = [];
+    children.addAll([wall1, wall2, watchTower1, watchTower2]);
   }
 
   @override

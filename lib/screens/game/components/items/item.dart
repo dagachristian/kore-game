@@ -9,10 +9,18 @@ import '../../destructable.dart';
 
 abstract class Item extends SpriteComponent with Destructable, Tapable {
   final DankGame game;
+  final int spawnChance;
 
-  Item(this.game, {@required double width, @required double height, @required Sprite sprite}) : super.fromSprite(width, height, sprite);
+  int uses;
 
-  void use();
+  Item(this.game, {@required double width, @required double height, @required Sprite sprite, this.spawnChance = 0, this.uses = 1}) : super.fromSprite(width, height, sprite);
+
+  void use() {
+    uses -=1;
+    if (uses <= 0) {
+      game.itemBar.dequipItem(this);
+    }
+  }
 
   @override
   void onTapDown(TapDownDetails details) {

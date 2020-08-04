@@ -10,5 +10,6 @@ class BasicHeal extends Item {
   @override
   void use() {
     if (!game.player.isDead) game.player.health += 20;
+    super.use();
   }
 }

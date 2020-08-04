@@ -28,6 +28,7 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   int score;
 
   EnemyController enemyController;
+  ItemController itemController;
 
   HomeView homeView;
   GameOverView gameOverView;
@@ -69,6 +70,8 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     homeButton = HomeButton(this);
     
     enemyController = EnemyController(this);
+    itemController = ItemController(this);
+
     bg = BackGround(this);
     lvl = LevelOne(this);
     scoreDisplay = ScoreDisplay(this);
