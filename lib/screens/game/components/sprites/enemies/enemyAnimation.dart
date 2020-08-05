@@ -4,7 +4,7 @@ import 'package:flame/animation.dart';
 import 'package:flame/components/animation_component.dart';
 import 'package:flame/sprite.dart';
 
-import 'enemy.dart';
+import './enemy.dart';
 
 class EnemyAnimation extends AnimationComponent {
   final Enemy enemy;

@@ -1,5 +1,6 @@
 import 'package:flame/components/component.dart';
-import 'components/sprites/mob.dart';
+
+import './components/sprites/mob.dart';
 
 class Barrier {
   List<SpriteComponent> barriers;

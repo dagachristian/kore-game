@@ -1,13 +1,12 @@
 import 'package:flame/sprite.dart';
-import 'package:kore_game/screens/game/components/items/basicHeal.dart';
-import 'package:kore_game/screens/game/components/items/item.dart';
-import 'package:kore_game/screens/game/components/sprites/enemies/index.dart';
 
 import './courtyard.dart';
 
-import '../../index.dart';
+import '../level.dart';
 
 import '../../../../dankGame.dart';
+import '../../../items/index.dart';
+import '../../../sprites/enemies/index.dart';
 
 class LevelOne extends Level {
   Wall1 wall1;

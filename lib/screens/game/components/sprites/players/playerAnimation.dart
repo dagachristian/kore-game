@@ -4,7 +4,7 @@ import 'package:flame/animation.dart';
 import 'package:flame/components/animation_component.dart';
 import 'package:flame/sprite.dart';
 
-import 'player.dart';
+import './player.dart';
 
 class PlayerAnimation extends AnimationComponent {
   final Player player;

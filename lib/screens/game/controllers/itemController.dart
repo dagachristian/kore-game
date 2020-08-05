@@ -1,7 +1,6 @@
-import 'package:kore_game/screens/game/components/items/basicHeal.dart';
-import 'package:kore_game/screens/game/components/items/item.dart';
-import 'package:kore_game/screens/game/components/ui/bg/level.dart';
-import 'package:kore_game/screens/game/dankGame.dart';
+import '../components/items/index.dart';
+import '../components/ui/bg/level.dart';
+import '../dankGame.dart';
 
 class ItemController {
   final DankGame game;
