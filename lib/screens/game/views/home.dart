@@ -13,11 +13,11 @@ class HomeView extends AnimationComponent with Destructable {
       columns: 80,
       rows: 1,
       imageName: 'branding/spritesheet.png',
-      textureWidth: 101,
-      textureHeight: 60,
+      textureWidth: 205,
+      textureHeight: 200,
     );
 
-  HomeView(this.game) : super(game.size.width + 10, 450.0, logoSheet.createAnimation(0, stepTime: 0.1));
+  HomeView(this.game) : super(game.size.width + 20, game.size.height * 2/3, logoSheet.createAnimation(0, stepTime: 0.1));
 
   @override
   void resize(Size size) {

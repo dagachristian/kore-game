@@ -28,5 +28,7 @@ class BasicEnemy extends Enemy with Destructable {
       Sprite('sprites/enemies/basic_enemy_death_03.png'),
       Sprite('sprites/enemies/basic_enemy_death_04.png'),
     ],
+    attackSound: 'sfx/enemies/basic_enemy_attack.mp3',
+    deathSound: 'sfx/enemies/basic_enemy_death.mp3'
   );
 }

@@ -16,15 +16,9 @@ class ItemController {
     items = [];
   }
 
-  void populateMapWithItems(Level lvl, List<Item> itms, int amount) {
+  void populateMapWithItems(Level lvl, int amount) {
     for (int i=0;i<amount;i++) {
-      Item item = BasicHeal(game);
-      for (Item e in itms) {
-        if (game.r.nextInt(100) < e.spawnChance) {
-          item = e;
-          break;
-        }
-      }
+      Item item = lvl.getItem();
       item.x = game.r.nextInt(lvl.width.toInt()).toDouble();
       item.y = game.r.nextInt(lvl.height.toInt()).toDouble();
       items.add(item);

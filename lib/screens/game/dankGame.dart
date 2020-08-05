@@ -78,7 +78,7 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     healthBar = HealthBar(this);
 
     joyStick.addObserver(player);
-    
+    Flame.bgm.play('bgm/background_music.mp3', volume: 0.25);
     initSprites();
   }
 

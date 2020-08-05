@@ -1,4 +1,7 @@
 import 'package:flame/sprite.dart';
+import 'package:kore_game/screens/game/components/items/basicHeal.dart';
+import 'package:kore_game/screens/game/components/items/item.dart';
+import 'package:kore_game/screens/game/components/sprites/enemies/index.dart';
 
 import './courtyard.dart';
 
@@ -24,10 +27,32 @@ class LevelOne extends Level {
     super.reset();
 
     game.enemyController.populateMapWithEnemies(game.lvl, 40);
-    game.itemController.populateMapWithItems(game.lvl, [], 10);
+    game.itemController.populateMapWithItems(game.lvl, 10);
 
     game.spawn([wall1, wall2, watchTower1, watchTower2]);
     children.addAll([wall1, wall2, watchTower1, watchTower2]);
+  }
+
+  @override
+  Enemy getEnemy() {
+    if (game.r.nextInt(100) < RareEnemy.spawnChance) {
+      return RareEnemy(game);
+    } else {
+      return BasicEnemy(game);
+    }
+  }
+
+  @override
+  Enemy getBoss() {
+    Enemy boss = SlavBoss(game);
+    boss.x = width * 19/20;
+    boss.y = height * 14/20;
+    return boss;
+  }
+
+  @override
+  Item getItem() {
+    return BasicHeal(game);
   }
 
   @override

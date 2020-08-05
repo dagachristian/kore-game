@@ -1,3 +1,4 @@
+import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 
 import './enemy.dart';
@@ -28,6 +29,9 @@ class SlavBoss extends Enemy with Destructable {
     Sprite('sprites/enemies/slav_boss_tongue_attack_06.png'),
   ];
 
+  String jumpAttackSound = 'sfx/enemies/slav_boss_jump_attack.mp3';
+  String tongueAttackSound = 'sfx/enemies/slav_boss_tongue_attack.mp3';
+
   SlavBoss(DankGame game) : super(
     game: game,
     width: 200, 
@@ -40,7 +44,9 @@ class SlavBoss extends Enemy with Destructable {
     attackSpeed: .2,
     aggroRange: game.size.height + game.player.height,
     attackAnim: [],
-    deathAnim: []
+    deathAnim: [],
+    attackSound: '',
+    deathSound: 'sfx/enemies/slav_boss_death.mp3'
   );
 
   @override
@@ -68,9 +74,11 @@ class SlavBoss extends Enemy with Destructable {
     if (DateTime.now().millisecondsSinceEpoch % (1000 / attackSpeed) < 50) {
       attacking = true;
       if (game.r.nextInt(100) < 20) {
+        Flame.audio.play(jumpAttackSound);
         game.add(EnemyAnimation(this, jumpAttackAnim));
         game.player.health -= damage / 5;
       } else {
+        Flame.audio.play(tongueAttackSound);
         game.add(EnemyAnimation(this, tongueAttackAnim));
         game.player.health -= damage / 8;
       }
@@ -98,6 +106,9 @@ class SlavBossEvil extends Enemy with Destructable {
     Sprite('sprites/enemies/slav_boss_evil_laser_attack_06.png'),
   ];
 
+  String headAttackSound = 'sfx/enemies/slav_boss_evil_head_attack.mp3';
+  String laserAttackSound = 'sfx/enemies/slav_boss_evil_laser_attack.mp3';
+
   SlavBossEvil(DankGame game) : super(
     game: game,
     width: 200, 
@@ -118,7 +129,9 @@ class SlavBossEvil extends Enemy with Destructable {
       Sprite('sprites/enemies/slav_boss_evil_death_05.png'),
       Sprite('sprites/enemies/slav_boss_evil_death_06.png'),
       Sprite('sprites/enemies/slav_boss_evil_death_07.png'),
-    ]
+    ],
+    attackSound: '',
+    deathSound: 'sfx/enemies/slav_boss_death.mp3'
   );
 
   @override
@@ -134,9 +147,11 @@ class SlavBossEvil extends Enemy with Destructable {
     if (DateTime.now().millisecondsSinceEpoch % (1000 / attackSpeed) < 50) {
       attacking = true;
       if (game.r.nextInt(100) < 20) {
+        Flame.audio.play(headAttackSound);
         game.add(EnemyAnimation(this, headAttackAnim));
         game.player.health -= damage / 5;
       } else {
+        Flame.audio.play(laserAttackSound);
         game.add(EnemyAnimation(this, laserAttackAnim));
         game.player.health -= damage / 8;
       }

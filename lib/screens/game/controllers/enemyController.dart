@@ -95,20 +95,13 @@ class EnemyController {
 
   void populateMapWithEnemies(Level lvl, int amount) {
     for (int i=0;i<amount;i++) {
-      Enemy enemy;
-      if (r.nextInt(100) < rareEnemyMinChance) {
-        enemy = RareEnemy(game);
-      } else {
-        enemy = BasicEnemy(game);
-      }
+      Enemy enemy = lvl.getEnemy();
       enemy.x = r.nextInt(lvl.width.toInt()).toDouble();
       enemy.y = r.nextInt(lvl.height.toInt()).toDouble();
       enemies.add(enemy);
       game.lvl.addChild(enemy);
     }
-    Enemy boss = SlavBoss(game);
-    boss.x = lvl.width * 19/20;
-    boss.y = lvl.height * 14/20;
+    Enemy boss = lvl.getBoss();
     enemies.add(boss);
     game.lvl.addChild(boss);
     game.spawn(enemies);

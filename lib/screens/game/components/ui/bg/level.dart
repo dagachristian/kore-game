@@ -2,6 +2,9 @@ import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/foundation.dart';
 
+import '../../items/item.dart';
+import '../../sprites/enemies/enemy.dart';
+
 import '../../../dankGame.dart';
 import '../../../destructable.dart';
 
@@ -19,7 +22,13 @@ abstract class Level extends SpriteComponent with Destructable {
     children = [];
     game.enemyController.killAll();
     game.itemController.destroyAll();
+    game.player.respawn();
   }
+
+  Enemy getEnemy();
+  Enemy getBoss();
+
+  Item getItem();
 
   void moveX(double x) {
     this.x += x;

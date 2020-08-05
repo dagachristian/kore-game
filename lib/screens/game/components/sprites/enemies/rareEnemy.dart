@@ -6,6 +6,8 @@ import '../../../destructable.dart';
 import '../../../dankGame.dart';
 
 class RareEnemy extends Enemy with Destructable {
+  static final int spawnChance = 10;
+
   RareEnemy(DankGame game) : super(
     game: game,
     width: 80.0,
@@ -30,6 +32,7 @@ class RareEnemy extends Enemy with Destructable {
       Sprite('sprites/enemies/rare_enemy_death_03.png'),
       Sprite('sprites/enemies/rare_enemy_death_04.png'),
     ],
-    spawnChance: 10,
+    attackSound: 'sfx/enemies/rare_enemy_attack.mp3',
+    deathSound: 'sfx/enemies/rare_enemy_death.mp3'
   );
 }

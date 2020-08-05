@@ -1,8 +1,6 @@
 import 'package:flame/flame.dart';
 import 'package:flame/util.dart';
 
-import '../bgm.dart';
-
 class _Flame {
   Util flameUtil;
 
@@ -98,8 +96,29 @@ class _Flame {
       'sprites/enemies/slav_boss_evil_death_07.png',
     ]);
 
+    await Flame.audio.loadAll(<String>[
+      'bgm/background_music.mp3',
+
+      'sfx/player/player_death.mp3',
+      'sfx/player/player_attack.mp3',
+      'sfx/player/basic_heal.mp3',
+
+      'sfx/enemies/basic_enemy_death.mp3',
+      'sfx/enemies/basic_enemy_attack.mp3',
+
+      'sfx/enemies/rare_enemy_death.mp3',
+      'sfx/enemies/rare_enemy_attack.mp3',
+
+      'sfx/enemies/slav_boss_death.mp3',
+      'sfx/enemies/slav_boss_tongue_attack.mp3',
+      'sfx/enemies/slav_boss_jump_attack.mp3',
+      
+      'sfx/enemies/slav_boss_evil_head_attack.mp3',
+      'sfx/enemies/slav_boss_evil_laser_attack.mp3'
+    ]);
+
+    Flame.bgm.initialize();
     Flame.audio.disableLog();
-    await Flame.audio.loadAll(<String>[]);
   }
 }
 final _Flame flame = _Flame();

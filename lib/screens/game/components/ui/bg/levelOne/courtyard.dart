@@ -42,7 +42,7 @@ class Wall2 extends SpriteComponent with Destructable {
 class WatchTower1 extends SpriteComponent with Destructable {
   final LevelOne level;
 
-  WatchTower1(this.level) : super.fromSprite(250, 250, Sprite('bg/watchtower.png')) {
+  WatchTower1(this.level) : super.fromSprite(150, 150, Sprite('bg/watchtower.png')) {
     level.game.barrier.addBarrier(this);
   }
 
@@ -58,14 +58,14 @@ class WatchTower1 extends SpriteComponent with Destructable {
 class WatchTower2 extends SpriteComponent with Destructable {
   final LevelOne level;
 
-  WatchTower2(this.level) : super.fromSprite(250, 250, Sprite('bg/watchtower.png')) {
+  WatchTower2(this.level) : super.fromSprite(150, 150, Sprite('bg/watchtower.png')) {
     level.game.barrier.addBarrier(this);
   }
 
   @override
   void resize(Size size) {
     this.x = level.width * .8633;
-    this.y = level.height * .776;
+    this.y = level.height * .78;
 
     super.resize(size);
   }

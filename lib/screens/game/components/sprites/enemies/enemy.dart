@@ -1,4 +1,5 @@
 import 'package:flame/components/component.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -36,7 +37,8 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
 
   final List<Sprite> attackAnim;
   final List<Sprite> deathAnim;
-  final int spawnChance;
+  final String attackSound;
+  final String deathSound;
 
   Enemy(
     {
@@ -64,7 +66,10 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
       this.attackAnim,
       @required
       this.deathAnim,
-      this.spawnChance = 0
+      @required
+      this.attackSound,
+      @required
+      this.deathSound
     }
   ) : super.fromSprite(width, height, sprite) {
     health = maxHealth;
@@ -77,6 +82,7 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
     if (!isDead) {
       isDead = true;
       health = maxHealth;
+      Flame.audio.play(deathSound);
       game.add(EnemyAnimation(this, deathAnim));
       game.remove([this, enemyHealthBar]);
     }
@@ -120,6 +126,7 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
   void attack() {
     if (DateTime.now().millisecondsSinceEpoch % (1000 / attackSpeed) < 50) {
       attacking = true;
+      Flame.audio.play(attackSound);
       game.add(EnemyAnimation(this, attackAnim));
       game.player.health -= damage / 10;
     } 
