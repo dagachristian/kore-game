@@ -39,7 +39,10 @@ class EnemyController {
   }
 
   void killAll() {
+    bool muted = game.sfxmuted;
+    game.sfxmuted = true;
     enemies.forEach((Enemy enemy) => enemy.died());
+    game.sfxmuted = muted;
     enemies = [];
   }
   

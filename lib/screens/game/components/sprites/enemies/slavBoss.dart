@@ -40,7 +40,7 @@ class SlavBoss extends Enemy with Destructable {
     speed: 100.0, 
     maxHealth: 500.0, 
     damage: 100.0,
-    range: 125.0, 
+    range: 150.0, 
     attackSpeed: .2,
     aggroRange: game.size.height + game.player.height,
     attackAnim: [],
@@ -74,13 +74,21 @@ class SlavBoss extends Enemy with Destructable {
     if (DateTime.now().millisecondsSinceEpoch % (1000 / attackSpeed) < 50) {
       attacking = true;
       if (game.r.nextInt(100) < 20) {
-        Flame.audio.play(jumpAttackSound);
+        if (!game.sfxmuted) Flame.audio.play(jumpAttackSound);
         game.add(EnemyAnimation(this, jumpAttackAnim));
-        game.player.health -= damage / 5;
+        Future.delayed(Duration(milliseconds: 1000)).then((_) {
+          if (((game.player.x + game.player.width/2) - (x + width/2)).abs() < range && ((game.player.y + game.player.height/2) - (y + height/2)).abs() < range) {
+            game.player.health -= damage / 4;
+          }
+        });
       } else {
-        Flame.audio.play(tongueAttackSound);
+        if (!game.sfxmuted) Flame.audio.play(tongueAttackSound);
         game.add(EnemyAnimation(this, tongueAttackAnim));
-        game.player.health -= damage / 8;
+        Future.delayed(Duration(milliseconds: 800)).then((_) {
+          if (((game.player.x + game.player.width/2) - (x + width/2)).abs() < range && ((game.player.y + game.player.height/2) - (y + height/2)).abs() < range) {
+            game.player.health -= damage / 7;
+          }
+        });
       }
     } 
   }
@@ -117,7 +125,7 @@ class SlavBossEvil extends Enemy with Destructable {
     speed: 120.0, 
     maxHealth: 600.0, 
     damage: 120.0,
-    range: 125.0, 
+    range: 150.0, 
     attackSpeed: .2,
     aggroRange: game.size.height + game.player.height,
     attackAnim: [],
@@ -147,13 +155,21 @@ class SlavBossEvil extends Enemy with Destructable {
     if (DateTime.now().millisecondsSinceEpoch % (1000 / attackSpeed) < 50) {
       attacking = true;
       if (game.r.nextInt(100) < 20) {
-        Flame.audio.play(headAttackSound);
+        if (!game.sfxmuted) Flame.audio.play(headAttackSound);
         game.add(EnemyAnimation(this, headAttackAnim));
-        game.player.health -= damage / 5;
+        Future.delayed(Duration(milliseconds: 1000)).then((_) {
+          if (((game.player.x + game.player.width/2) - (x + width/2)).abs() < range && ((game.player.y + game.player.height/2) - (y + height/2)).abs() < range) {
+            game.player.health -= damage / 4;
+          }
+        });
       } else {
-        Flame.audio.play(laserAttackSound);
+        if (!game.sfxmuted) Flame.audio.play(laserAttackSound);
         game.add(EnemyAnimation(this, laserAttackAnim));
-        game.player.health -= damage / 8;
+        Future.delayed(Duration(milliseconds: 600)).then((_) {
+          if (((game.player.x + game.player.width/2) - (x + width/2)).abs() < range && ((game.player.y + game.player.height/2) - (y + height/2)).abs() < range) {
+            game.player.health -= damage / 7;
+          }
+        });
       }
     } 
   }

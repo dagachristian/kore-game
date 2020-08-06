@@ -82,7 +82,7 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
     if (!isDead) {
       isDead = true;
       health = maxHealth;
-      Flame.audio.play(deathSound);
+      if (!game.sfxmuted) Flame.audio.play(deathSound);
       game.add(EnemyAnimation(this, deathAnim));
       game.remove([this, enemyHealthBar]);
     }
@@ -126,9 +126,9 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
   void attack() {
     if (DateTime.now().millisecondsSinceEpoch % (1000 / attackSpeed) < 50) {
       attacking = true;
-      Flame.audio.play(attackSound);
+      if (!game.sfxmuted) Flame.audio.play(attackSound);
       game.add(EnemyAnimation(this, attackAnim));
-      game.player.health -= damage / 10;
+      game.player.health -= damage / 5;
     } 
   }
 }

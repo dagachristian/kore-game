@@ -24,7 +24,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
   @override
   double range = 100.0;
   @override
-  double speed = 200.0;
+  double speed = 225.0; //200
   @override
   double maxHealth = 100.0;
   @override
@@ -62,14 +62,16 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
 
   @override
   void attack() {
-    attacking = true;
-    Flame.audio.play(attackSound);
-    game.add(PlayerAnimation(game.player, attackAnim));
-    game.enemyController.enemies.forEach((Enemy enemy) {
-      if (((enemy.x + enemy.width/2) - (x + width/2)).abs() < range && ((enemy.y + enemy.height/2) - (y + height/2)).abs() < range) {
-        enemy.health -= damage;
-      }
-    });
+    if (!attacking) {
+      attacking = true;
+      if (!game.sfxmuted) Flame.audio.play(attackSound);
+      game.add(PlayerAnimation(game.player, attackAnim));
+      game.enemyController.enemies.forEach((Enemy enemy) {
+        if (((enemy.x + enemy.width/2) - (x + width/2)).abs() < range && ((enemy.y + enemy.height/2) - (y + height/2)).abs() < range) {
+          enemy.health -= damage;
+        }
+      });
+    }
   }
 
   void respawn() {
@@ -83,9 +85,9 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
     isDead = true;
     game.enemyController.stop();
     health = maxHealth;
-    Flame.audio.play(deathSound);
+    if (!game.sfxmuted) Flame.audio.play(deathSound);
     game.add(PlayerAnimation(game.player, deathAnim));
-    game.spawn([game.gameOverView, game.restartButton, game.backButton]);
+    game.spawn([game.gameOverView]);
     game.remove([game.joyStick, game.itemBar, game.healthBar, game.pauseButton, game.player]);
   }
 
@@ -156,15 +158,6 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
   }
 
   @override
-  void joystickAction(JoystickActionEvent event) {
-    if (!isDead && !game.paused) {
-      if (event.event == ActionEvent.DOWN) {
-        attack();
-      }
-    }
-  }
-
-  @override
   void joystickChangeDirectional(JoystickDirectionalEvent event) {
     _move = event.directional != JoystickMoveDirectional.IDLE;
 
@@ -173,4 +166,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
       direction = event.radAngle;
     }
   }
+
+  @override
+  void joystickAction(JoystickActionEvent event) {}
 }

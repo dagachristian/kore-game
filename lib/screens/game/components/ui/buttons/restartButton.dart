@@ -24,6 +24,6 @@ class RestartButton extends SpriteComponent with Tapable, Destructable {
   @override
   void onTapDown(TapDownDetails details) {
     game.lvl.reset();
-    game.remove([game.gameOverView, game.restartButton, game.backButton]);
+    game.remove([game.gameOverView]);
   }
 }

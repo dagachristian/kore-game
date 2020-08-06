@@ -15,21 +15,31 @@ class ItemBar extends SpriteComponent with Tapable, Destructable {
   final DankGame game;
   
   Item currentItem;
+  double currentItemWidth;
+  double currentItemHeight;
   
-  ItemBar(this.game) : super.fromSprite(100, 100, Sprite('ui/item_slot.png'));
+  ItemBar(this.game) : super.fromSprite(game.tileSize * 1.8, game.tileSize * 1.8, Sprite('ui/item_slot.png'));
 
   void equipItem(Item item) {
+    dequipItem();
+    game.lvl.removeChild(item);
+    currentItem = item;
+    currentItemWidth = item.width;
+    currentItemHeight = item.height;
+    item.x = x + 5;
+    item.y = y + 5;
+    item.width = width - 10;
+    item.height = height - 10;
+  }
+
+  void dequipItem() {
     if (currentItem != null) {
       currentItem.y = game.player.y + game.player.height;
       currentItem.x = game.player.x;
+      currentItem.width = currentItemWidth;
+      currentItem.height = currentItemHeight;
       game.lvl.addChild(currentItem);
     }
-    game.lvl.removeChild(item);
-    currentItem = item;
-    item.x = x + 5;
-    item.y = y + 5;
-    item.width = 90;
-    item.height = 90;
   }
 
   void destroyItem() {

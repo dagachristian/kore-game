@@ -18,4 +18,16 @@ class GameOverView extends SpriteComponent with Destructable {
 
     super.resize(size);
   }
+
+  @override
+  void onDestroy() {
+    game.remove([game.restartButton, game.backButton]);
+    super.onDestroy();
+  }
+
+  @override
+  void onMount() {
+    game.spawn([game.restartButton, game.backButton]);
+    super.onMount();
+  }
 }

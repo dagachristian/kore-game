@@ -25,4 +25,12 @@ class ItemController {
     }
     game.spawn(items);
   }
+
+  void spawnItem(Item item, double x, double y) {
+    item.x = x;
+    item.y = y;
+    items.add(item);
+    game.lvl.addChild(item);
+    game.spawn([item]);
+  }
 }

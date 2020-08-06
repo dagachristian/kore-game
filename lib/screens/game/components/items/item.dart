@@ -19,7 +19,7 @@ abstract class Item extends SpriteComponent with Destructable, Tapable {
 
   void use() {
     uses -=1;
-    Flame.audio.play(useSound);
+    if (!game.sfxmuted) Flame.audio.play(useSound);
     if (uses <= 0) {
       game.itemBar.destroyItem();
     }

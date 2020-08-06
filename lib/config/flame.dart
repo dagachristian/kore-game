@@ -26,9 +26,17 @@ class _Flame {
       'ui/home.png',
       'ui/game_over.png',
       'ui/healthbar.png',
+      'ui/attack.png',
+      'ui/attack_pressed.png',
       'ui/item_slot.png',
+      'ui/bgm.png',
+      'ui/mutebgm.png',
+      'ui/sfx.png',
+      'ui/mutesfx.png',
 
       'items/basic_heal.png',
+      'items/basic_strength.png',
+      'items/basic_ultimate.png',
 
       'sprites/player/player.png',
       'sprites/player/player_attack_01.png',

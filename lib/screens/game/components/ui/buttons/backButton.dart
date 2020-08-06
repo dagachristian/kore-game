@@ -25,7 +25,7 @@ class BackButton extends SpriteComponent with Tapable, Destructable {
   void onTapDown(TapDownDetails details) {
     game.enemyController.killAll();
     game.lvl.removeAll();
-    game.remove([game.gameOverView, game.restartButton, game.lvl, game.backButton]);
-    game.spawn([game.bg, game.homeView, game.startButton]);
+    game.remove([game.gameOverView, game.lvl]);
+    game.homeView.loadView();
   }
 }

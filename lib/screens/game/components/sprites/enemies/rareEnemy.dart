@@ -6,8 +6,6 @@ import '../../../destructable.dart';
 import '../../../dankGame.dart';
 
 class RareEnemy extends Enemy with Destructable {
-  static final int spawnChance = 10;
-
   RareEnemy(DankGame game) : super(
     game: game,
     width: 80.0,

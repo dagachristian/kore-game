@@ -13,9 +13,13 @@ import './components/sprites/players/index.dart';
 import './components/ui/index.dart';
 import './controllers/index.dart';
 
+import '../../config/index.dart' show config;
+
 class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponents {
   Random r;
   bool paused;
+  bool sfxmuted;
+  bool bgmmuted;
   Barrier barrier;
 
   BackGround bg;
@@ -43,6 +47,8 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   BackButton backButton;
   PauseButton pauseButton;
   HomeButton homeButton;
+  BgmButton bgmButton;
+  SfxButton sfxButton;
 
   DankGame() {
     initialize();
@@ -51,6 +57,10 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   void initialize() async {
     r = Random();
     paused = false;
+    if (!config.sharedPrefs.containsKey('sfxmuted')) await config.sharedPrefs.setBool('sfxmuted', false);
+    sfxmuted = config.sharedPrefs.getBool('sfxmuted');
+    if (!config.sharedPrefs.containsKey('bgmmuted')) await config.sharedPrefs.setBool('bgmmuted', false);
+    bgmmuted = config.sharedPrefs.getBool('bgmmuted');
     barrier = Barrier();
     super.resize(await Flame.util.initialDimensions());
 
@@ -68,6 +78,8 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     backButton = BackButton(this);
     pauseButton = PauseButton(this);
     homeButton = HomeButton(this);
+    bgmButton = BgmButton(this);
+    sfxButton = SfxButton(this);
     
     enemyController = EnemyController(this);
     itemController = ItemController(this);
@@ -78,12 +90,12 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     healthBar = HealthBar(this);
 
     joyStick.addObserver(player);
-    Flame.bgm.play('bgm/background_music.mp3', volume: 0.25);
+    if (!bgmmuted) Flame.bgm.play('bgm/background_music.mp3', volume: 0.2);
     initSprites();
   }
 
   void initSprites() {
-    spawn([bg, homeView, startButton]);
+    homeView.loadView();
   }
 
   void spawn(List<Destructable> cs) {

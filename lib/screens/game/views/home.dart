@@ -26,4 +26,15 @@ class HomeView extends AnimationComponent with Destructable {
 
     super.resize(size);
   }
+
+  @override
+  void onDestroy() {
+    game.remove([game.bg, game.startButton, game.bgmButton, game.sfxButton]);
+
+    super.onDestroy();
+  }
+
+  void loadView() {
+    game.spawn([game.bg, game.homeView, game.startButton, game.bgmButton, game.sfxButton]);
+  }
 }
