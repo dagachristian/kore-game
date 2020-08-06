@@ -128,6 +128,7 @@ class SlavBossEvil extends Enemy with Destructable {
     range: 150.0, 
     attackSpeed: .2,
     aggroRange: game.size.height + game.player.height,
+    drop: () => game.lvl.levelPass(),
     attackAnim: [],
     deathAnim: <Sprite>[
       Sprite('sprites/enemies/slav_boss_evil_death_01.png'),

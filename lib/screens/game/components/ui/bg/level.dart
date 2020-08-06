@@ -16,13 +16,31 @@ abstract class Level extends SpriteComponent with Destructable {
     children = [];
   }
 
+  void start() {
+    game.player.respawn();
+  }
+
   void reset() {
     x = 0;
     y = 0;
     children = [];
     game.enemyController.killAll();
     game.itemController.destroyAll();
-    game.player.respawn();
+    start();
+  }
+
+  void levelFail() {
+    game.spawn([game.gameOverView]);
+  }
+
+  void levelPass() {
+    Future.delayed(Duration(seconds: 3)).then((_) {
+      game.player.died();
+      game.enemyController.killAll();
+      game.lvl.removeAll();
+      game.remove([game.pauseButton, game.homeButton, game.gameOverView, game.lvl]);
+      game.homeView.loadView();
+    });
   }
 
   Enemy getEnemy();

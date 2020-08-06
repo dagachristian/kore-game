@@ -7,6 +7,38 @@ import './levelOne.dart';
 
 import '../../../../destructable.dart';
 
+class Courtyard extends PositionComponent with Destructable {
+  final LevelOne level;
+
+  Wall1 wall1;
+  Wall2 wall2;
+  WatchTower1 watchTower1;
+  WatchTower2 watchTower2;
+
+  Courtyard(this.level) {
+    wall1 = Wall1(level);
+    wall2 = Wall2(level);
+    watchTower1 = WatchTower1(level);
+    watchTower2 = WatchTower2(level);
+  }
+
+  @override
+  void onMount() {
+    level.game.spawn([wall1, wall2, watchTower1, watchTower2]);
+    level.children.addAll([wall1, wall2, watchTower1, watchTower2]);
+    super.onMount();
+  }
+
+  @override
+  void onDestroy() {
+    level.game.remove([wall1, wall2, watchTower1, watchTower2]);
+    super.onDestroy();
+  }
+
+  @override
+  void render(Canvas c) {}
+}
+
 class Wall1 extends SpriteComponent with Destructable {
   final LevelOne level;
 

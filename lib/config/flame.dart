@@ -10,6 +10,8 @@ class _Flame {
     await flameUtil.setPortrait();
 
     await Flame.images.loadAll(<String>[
+      'empty.png',
+
       'bg/background.jpg',
       'bg/level_01.jpg',
       'bg/watchtower.png',
@@ -37,6 +39,14 @@ class _Flame {
       'items/basic_heal.png',
       'items/basic_strength.png',
       'items/basic_ultimate.png',
+
+      'items/crown.png',
+      'items/crown_01.png',
+      'items/crown_02.png',
+      'items/crown_03.png',
+      'items/crown_04.png',
+      'items/crown_05.png',
+      'items/crown_06.png',
 
       'sprites/player/player.png',
       'sprites/player/player_attack_01.png',
@@ -105,6 +115,8 @@ class _Flame {
     ]);
 
     await Flame.audio.loadAll(<String>[
+      'empty.mp3',
+
       'bgm/background_music.mp3',
 
       'sfx/player/player_death.mp3',
@@ -126,7 +138,6 @@ class _Flame {
     ]);
 
     Flame.bgm.initialize();
-    Flame.audio.disableLog();
   }
 }
 final _Flame flame = _Flame();

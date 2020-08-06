@@ -15,6 +15,8 @@ import './controllers/index.dart';
 
 import '../../config/index.dart' show config;
 
+export './destructable.dart';
+
 class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponents {
   Random r;
   bool paused;
@@ -41,6 +43,7 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   HealthBar healthBar;
   JoyStick joyStick;
   ItemBar itemBar;
+  HelmetSlot helmetSlot;
 
   StartButton startButton;
   RestartButton restartButton;
@@ -61,8 +64,10 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     sfxmuted = config.sharedPrefs.getBool('sfxmuted');
     if (!config.sharedPrefs.containsKey('bgmmuted')) await config.sharedPrefs.setBool('bgmmuted', false);
     bgmmuted = config.sharedPrefs.getBool('bgmmuted');
-    barrier = Barrier();
+    Flame.audio.disableLog();
     super.resize(await Flame.util.initialDimensions());
+
+    barrier = Barrier();
 
     score = 0;
 
@@ -73,6 +78,8 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
 
     joyStick = JoyStick(this);
     itemBar = ItemBar(this);
+    helmetSlot = HelmetSlot(this);
+
     startButton = StartButton(this);
     restartButton = RestartButton(this);
     backButton = BackButton(this);

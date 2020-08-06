@@ -8,14 +8,23 @@ import 'package:flutter/gestures.dart';
 import '../../dankGame.dart';
 import '../../destructable.dart';
 
+enum ItemType {
+  CONSUMABLE,
+  HELMET,
+}
+
 abstract class Item extends SpriteComponent with Destructable, Tapable {
   final DankGame game;
   final String useSound;
   final int spawnChance;
+  final ItemType type;
 
   int uses;
+  bool equipped;
 
-  Item(this.game, {@required double width, @required double height, @required Sprite sprite, @required this.useSound, this.spawnChance = 0, this.uses = 1}) : super.fromSprite(width, height, sprite);
+  Item(this.game, {@required this.type, @required double width, @required double height, @required Sprite sprite, this.useSound = 'empty.mp3', this.spawnChance = 0, this.uses = 1}) : super.fromSprite(width, height, sprite) {
+    equipped = false;
+  }
 
   void use() {
     uses -=1;
@@ -25,8 +34,22 @@ abstract class Item extends SpriteComponent with Destructable, Tapable {
     }
   }
 
+  void onEquip() {
+    equipped = true;
+  }
+  void onDequip() {
+    equipped = false;
+  }
+
   @override
   void onTapDown(TapDownDetails details) {
-    game.itemBar.equipItem(this);
+    switch(type) {
+      case ItemType.CONSUMABLE:
+        game.itemBar.equipItem(this);
+        break;
+      case ItemType.HELMET:
+        game.helmetSlot.equipItem(this);
+        break;
+    }
   }
 }

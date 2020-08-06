@@ -26,8 +26,9 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
   double damage;
   @override
   double range;
-  final double attackSpeed;
-  final double aggroRange;
+  double attackSpeed;
+  double aggroRange;
+  Function drop;
 
   @override
   double health;
@@ -63,6 +64,8 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
       @required
       this.aggroRange,
       @required
+      this.drop,
+      @required
       this.attackAnim,
       @required
       this.deathAnim,
@@ -81,10 +84,11 @@ abstract class Enemy extends SpriteComponent with Destructable implements Mob {
   void died() {
     if (!isDead) {
       isDead = true;
-      health = maxHealth;
       if (!game.sfxmuted) Flame.audio.play(deathSound);
       game.add(EnemyAnimation(this, deathAnim));
       game.remove([this, enemyHealthBar]);
+      if (drop != null && health <= 0) drop.call();
+      health = maxHealth;
     }
   }
 

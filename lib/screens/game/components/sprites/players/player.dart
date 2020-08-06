@@ -20,11 +20,11 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
 
   double moveRange = 150.0;
   @override
-  double damage = 30.0;
+  double damage = 30.0; //30
   @override
   double range = 100.0;
   @override
-  double speed = 225.0; //200
+  double speed = 250.0; //225
   @override
   double maxHealth = 100.0;
   @override
@@ -77,18 +77,17 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
   void respawn() {
     isDead = false;
     health = maxHealth;
-    game.spawn([game.player, game.joyStick, game.itemBar, game.healthBar, game.pauseButton]);
+    game.spawn([game.player, game.joyStick, game.itemBar, game.helmetSlot, game.healthBar, game.pauseButton]);
   }
 
   @override
   void died() {
     isDead = true;
-    game.enemyController.stop();
     health = maxHealth;
     if (!game.sfxmuted) Flame.audio.play(deathSound);
     game.add(PlayerAnimation(game.player, deathAnim));
-    game.spawn([game.gameOverView]);
-    game.remove([game.joyStick, game.itemBar, game.healthBar, game.pauseButton, game.player]);
+    game.remove([game.joyStick, game.itemBar, game.helmetSlot, game.healthBar, game.pauseButton, game.player]);
+    game.lvl.levelFail();
   }
 
   void move() {

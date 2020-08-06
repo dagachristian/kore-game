@@ -5,7 +5,7 @@ import './item.dart';
 import '../../dankGame.dart';
 
 class BasicUltimate extends Item {
-  BasicUltimate(DankGame game) : super(game, width: 90, height: 90, sprite: Sprite('items/basic_ultimate.png'), useSound: 'sfx/player/basic_heal.mp3');
+  BasicUltimate(DankGame game) : super(game, type: ItemType.CONSUMABLE, width: 90, height: 90, sprite: Sprite('items/basic_ultimate.png'), useSound: 'sfx/player/basic_heal.mp3');
 
   @override
   void use() async {
