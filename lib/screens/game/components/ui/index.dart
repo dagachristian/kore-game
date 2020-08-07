@@ -1,14 +1,5 @@
 export './bg/background.dart';
 export './bg/level.dart';
 export './bg/levelOne/levelOne.dart';
-export './hud/score.dart';
-export './hud/healthBar.dart';
-export './hud/equipment.dart';
-export './buttons/playerControls.dart';
-export './buttons/startButton.dart';
-export './buttons/restartButton.dart';
-export './buttons/backButton.dart';
-export './buttons/pauseButton.dart';
-export './buttons/homeButton.dart';
-export './buttons/bgmButton.dart';
-export './buttons/sfxButton.dart';
+export './hud/index.dart';
+export './buttons/index.dart';

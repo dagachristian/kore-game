@@ -6,7 +6,6 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
 
 import '../../../dankGame.dart';
-import '../../../destructable.dart';
 
 class PauseButton extends SpriteComponent with Tapable, Destructable {
   final DankGame game;
@@ -25,9 +24,9 @@ class PauseButton extends SpriteComponent with Tapable, Destructable {
   void onTapDown(TapDownDetails details) {
     if (game.paused) {
       game.paused = false;
-      game.remove([game.homeButton]);
+      game.remove([game.buttons.homeButton]);
     } else {
-      game.spawn([game.homeButton]);
+      game.spawn([game.buttons.homeButton]);
       game.paused = true;
     }
   }

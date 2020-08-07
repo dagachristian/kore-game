@@ -7,12 +7,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 
 import '../../items/index.dart';
-import '../../items/item.dart';
 
 import '../../../dankGame.dart';
-import '../../../destructable.dart';
 
-class Equipment extends SpriteComponent with Tapable, Destructable {
+abstract class Equipment extends SpriteComponent with Tapable, Destructable {
   final DankGame game;
   
   Item currentItem;
@@ -59,6 +57,7 @@ class Equipment extends SpriteComponent with Tapable, Destructable {
   }
 
   void destroyItem() {
+    dequipItem();
     game.remove([currentItem]);
     currentItem = null;
   }
@@ -66,9 +65,8 @@ class Equipment extends SpriteComponent with Tapable, Destructable {
   @override
   void onDestroy() {
     if (currentItem != null) {
-      game.remove([currentItem]);
+      destroyItem();
     }
-    currentItem = null;
     super.onDestroy();
   }
 

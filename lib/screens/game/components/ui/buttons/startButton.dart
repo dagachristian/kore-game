@@ -6,7 +6,6 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
 
 import '../../../dankGame.dart';
-import '../../../destructable.dart';
 
 class StartButton extends SpriteComponent with Tapable, Destructable {
   final DankGame game;
@@ -24,7 +23,7 @@ class StartButton extends SpriteComponent with Tapable, Destructable {
   @override
   void onTapDown(TapDownDetails details) {
     game.spawn([game.lvl]);
-    game.remove([game.homeView]);
+    game.remove([game.views.homeView]);
     game.lvl.reset();
   }
 }

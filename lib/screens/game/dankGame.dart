@@ -33,25 +33,13 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   Player player;
   int score;
 
-  EnemyController enemyController;
-  ItemController itemController;
+  Controllers controllers;
 
-  HomeView homeView;
-  GameOverView gameOverView;
+  Views views;
 
-  ScoreDisplay scoreDisplay;
-  HealthBar healthBar;
-  JoyStick joyStick;
-  ItemBar itemBar;
-  HelmetSlot helmetSlot;
+  Huds huds;
 
-  StartButton startButton;
-  RestartButton restartButton;
-  BackButton backButton;
-  PauseButton pauseButton;
-  HomeButton homeButton;
-  BgmButton bgmButton;
-  SfxButton sfxButton;
+  Buttons buttons;
 
   DankGame() {
     initialize();
@@ -60,6 +48,8 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   void initialize() async {
     r = Random();
     paused = false;
+    score = 0;
+    
     if (!config.sharedPrefs.containsKey('sfxmuted')) await config.sharedPrefs.setBool('sfxmuted', false);
     sfxmuted = config.sharedPrefs.getBool('sfxmuted');
     if (!config.sharedPrefs.containsKey('bgmmuted')) await config.sharedPrefs.setBool('bgmmuted', false);
@@ -69,40 +59,26 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
 
     barrier = Barrier();
 
-    score = 0;
-
     player = Player(this);
     
-    homeView = HomeView(this);
-    gameOverView = GameOverView(this);
+    views = Views(this);
 
-    joyStick = JoyStick(this);
-    itemBar = ItemBar(this);
-    helmetSlot = HelmetSlot(this);
+    huds = Huds(this);
 
-    startButton = StartButton(this);
-    restartButton = RestartButton(this);
-    backButton = BackButton(this);
-    pauseButton = PauseButton(this);
-    homeButton = HomeButton(this);
-    bgmButton = BgmButton(this);
-    sfxButton = SfxButton(this);
+    buttons = Buttons(this);
     
-    enemyController = EnemyController(this);
-    itemController = ItemController(this);
+    controllers = Controllers(this);
 
     bg = BackGround(this);
     lvl = LevelOne(this);
-    scoreDisplay = ScoreDisplay(this);
-    healthBar = HealthBar(this);
 
-    joyStick.addObserver(player);
+    huds.joyStick.addObserver(player);
     if (!bgmmuted) Flame.bgm.play('bgm/background_music.mp3', volume: 0.2);
     initSprites();
   }
 
   void initSprites() {
-    homeView.loadView();
+    views.homeView.loadView();
   }
 
   void spawn(List<Destructable> cs) {
@@ -120,14 +96,14 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
 
   @override
   void onReceiveDrag(DragEvent drag) {
-    joyStick.onReceiveDrag(drag);
+    huds.joyStick.onReceiveDrag(drag);
     super.onReceiveDrag(drag);
   }
 
   @override
   void update(double t) {
     if (!paused) {
-      enemyController.update(t);
+      controllers.enemyController.update(t);
 
       super.update(t);
     }

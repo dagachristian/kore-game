@@ -1,7 +1,6 @@
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
 
-import '../../../destructable.dart';
 import '../../../dankGame.dart';
 
 class BackGround extends SpriteComponent with Destructable {

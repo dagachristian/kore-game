@@ -6,7 +6,6 @@ import './enemyAnimation.dart';
 import './basicEnemy.dart';
 import './rareEnemy.dart';
 
-import '../../../destructable.dart';
 import '../../../dankGame.dart';
 
 class SlavBoss extends Enemy with Destructable {
@@ -32,6 +31,9 @@ class SlavBoss extends Enemy with Destructable {
   String jumpAttackSound = 'sfx/enemies/slav_boss_jump_attack.mp3';
   String tongueAttackSound = 'sfx/enemies/slav_boss_tongue_attack.mp3';
 
+  int maxSpawnEnemies = 10;
+  int spawnedEnemies;
+
   SlavBoss(DankGame game) : super(
     game: game,
     width: 200, 
@@ -47,12 +49,15 @@ class SlavBoss extends Enemy with Destructable {
     deathAnim: [],
     attackSound: '',
     deathSound: 'sfx/enemies/slav_boss_death.mp3'
-  );
+  ) {
+    spawnedEnemies = 0;
+  }
 
   @override
   void update(double t) {
-    if (DateTime.now().millisecondsSinceEpoch % 5000 < 50 && aggro && !game.player.isDead) {
-      game.enemyController.spawnEnemy(BasicEnemy(game), x + width/2, y + height*2/3);
+    if (DateTime.now().millisecondsSinceEpoch % 5000 < 50 && aggro && !game.player.isDead && spawnedEnemies <= maxSpawnEnemies) {
+      game.controllers.enemyController.spawnEnemy(BasicEnemy(game), x + width/2, y + height*2/3);
+      spawnedEnemies++;
     }
     super.update(t);
   }
@@ -64,7 +69,7 @@ class SlavBoss extends Enemy with Destructable {
       health = maxHealth;
       game.remove([this, enemyHealthBar]);
       if (!game.player.isDead) {
-        game.enemyController.spawnEnemy(SlavBossEvil(game), x, y);
+        game.controllers.enemyController.spawnEnemy(SlavBossEvil(game), x, y);
       }
     }
   }
@@ -117,6 +122,9 @@ class SlavBossEvil extends Enemy with Destructable {
   String headAttackSound = 'sfx/enemies/slav_boss_evil_head_attack.mp3';
   String laserAttackSound = 'sfx/enemies/slav_boss_evil_laser_attack.mp3';
 
+  int maxSpawnEnemies = 10;
+  int spawnedEnemies;
+
   SlavBossEvil(DankGame game) : super(
     game: game,
     width: 200, 
@@ -141,12 +149,15 @@ class SlavBossEvil extends Enemy with Destructable {
     ],
     attackSound: '',
     deathSound: 'sfx/enemies/slav_boss_death.mp3'
-  );
+  ) {
+    spawnedEnemies = 0;
+  }
 
   @override
   void update(double t) {
-    if (DateTime.now().millisecondsSinceEpoch % 5000 < 50 && aggro && !game.player.isDead) {
-      game.enemyController.spawnEnemy(RareEnemy(game), x + width/2, y + height*2/3);
+    if (DateTime.now().millisecondsSinceEpoch % 5000 < 50 && aggro && !game.player.isDead && spawnedEnemies <= maxSpawnEnemies) {
+      game.controllers.enemyController.spawnEnemy(RareEnemy(game), x + width/2, y + height*2/3);
+      spawnedEnemies++;
     }
     super.update(t);
   }

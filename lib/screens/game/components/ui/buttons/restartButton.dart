@@ -5,7 +5,6 @@ import 'package:flame/components/mixins/tapable.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
 
-import '../../../destructable.dart';
 import '../../../dankGame.dart';
 
 class RestartButton extends SpriteComponent with Tapable, Destructable {
@@ -24,6 +23,6 @@ class RestartButton extends SpriteComponent with Tapable, Destructable {
   @override
   void onTapDown(TapDownDetails details) {
     game.lvl.reset();
-    game.remove([game.gameOverView]);
+    game.remove([game.views.gameOverView]);
   }
 }

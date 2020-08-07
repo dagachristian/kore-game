@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 
 import '../../dankGame.dart';
-import '../../destructable.dart';
 
 enum ItemType {
   CONSUMABLE,
@@ -30,7 +29,7 @@ abstract class Item extends SpriteComponent with Destructable, Tapable {
     uses -=1;
     if (!game.sfxmuted) Flame.audio.play(useSound);
     if (uses <= 0) {
-      game.itemBar.destroyItem();
+      game.huds.itemBar.destroyItem();
     }
   }
 
@@ -45,10 +44,10 @@ abstract class Item extends SpriteComponent with Destructable, Tapable {
   void onTapDown(TapDownDetails details) {
     switch(type) {
       case ItemType.CONSUMABLE:
-        game.itemBar.equipItem(this);
+        game.huds.itemBar.equipItem(this);
         break;
       case ItemType.HELMET:
-        game.helmetSlot.equipItem(this);
+        game.huds.helmetSlot.equipItem(this);
         break;
     }
   }

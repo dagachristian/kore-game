@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flame/components/animation_component.dart';
 import 'package:flame/spritesheet.dart';
 
-import '../destructable.dart';
 import '../dankGame.dart';
 
 class HomeView extends AnimationComponent with Destructable {
@@ -29,12 +28,12 @@ class HomeView extends AnimationComponent with Destructable {
 
   @override
   void onDestroy() {
-    game.remove([game.bg, game.startButton, game.bgmButton, game.sfxButton]);
+    game.remove([game.bg, game.buttons.startButton, game.buttons.bgmButton, game.buttons.sfxButton]);
 
     super.onDestroy();
   }
 
   void loadView() {
-    game.spawn([game.bg, game.homeView, game.startButton, game.bgmButton, game.sfxButton]);
+    game.spawn([game.bg, game.views.homeView, game.buttons.startButton, game.buttons.bgmButton, game.buttons.sfxButton]);
   }
 }

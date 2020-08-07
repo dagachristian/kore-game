@@ -13,7 +13,6 @@ import '../mob.dart';
 import '../enemies/enemy.dart';
 
 import '../../../dankGame.dart';
-import '../../../destructable.dart';
 
 class Player extends SpriteComponent with Destructable implements JoystickListener, Mob {
   final DankGame game;
@@ -66,7 +65,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
       attacking = true;
       if (!game.sfxmuted) Flame.audio.play(attackSound);
       game.add(PlayerAnimation(game.player, attackAnim));
-      game.enemyController.enemies.forEach((Enemy enemy) {
+      game.controllers.enemyController.enemies.forEach((Enemy enemy) {
         if (((enemy.x + enemy.width/2) - (x + width/2)).abs() < range && ((enemy.y + enemy.height/2) - (y + height/2)).abs() < range) {
           enemy.health -= damage;
         }
@@ -77,7 +76,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
   void respawn() {
     isDead = false;
     health = maxHealth;
-    game.spawn([game.player, game.joyStick, game.itemBar, game.helmetSlot, game.healthBar, game.pauseButton]);
+    game.spawn([game.views.playingView]);
   }
 
   @override
@@ -86,7 +85,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
     health = maxHealth;
     if (!game.sfxmuted) Flame.audio.play(deathSound);
     game.add(PlayerAnimation(game.player, deathAnim));
-    game.remove([game.joyStick, game.itemBar, game.helmetSlot, game.healthBar, game.pauseButton, game.player]);
+    game.remove([game.views.playingView]);
     game.lvl.levelFail();
   }
 

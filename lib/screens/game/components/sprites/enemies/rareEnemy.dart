@@ -2,7 +2,6 @@ import 'package:flame/sprite.dart';
 
 import './enemy.dart';
 
-import '../../../destructable.dart';
 import '../../../dankGame.dart';
 
 class RareEnemy extends Enemy with Destructable {

@@ -6,7 +6,6 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
 
 import '../../../dankGame.dart';
-import '../../../destructable.dart';
 
 class HomeButton extends SpriteComponent with Tapable, Destructable {
   final DankGame game;
@@ -25,9 +24,9 @@ class HomeButton extends SpriteComponent with Tapable, Destructable {
   void onTapDown(TapDownDetails details) {
     game.paused = false;
     game.player.died();
-    game.enemyController.killAll();
+    game.controllers.enemyController.killAll();
     game.lvl.removeAll();
-    game.remove([game.pauseButton, game.homeButton, game.gameOverView, game.lvl]);
-    game.homeView.loadView();
+    game.remove([game.buttons.pauseButton, game.buttons.homeButton, game.views.gameOverView, game.lvl]);
+    game.views.homeView.loadView();
   }
 }

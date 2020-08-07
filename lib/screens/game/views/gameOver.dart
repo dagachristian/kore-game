@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
 
-import '../destructable.dart';
 import '../dankGame.dart';
 
 class GameOverView extends SpriteComponent with Destructable {
@@ -21,13 +20,13 @@ class GameOverView extends SpriteComponent with Destructable {
 
   @override
   void onDestroy() {
-    game.remove([game.restartButton, game.backButton]);
+    game.remove([game.buttons.restartButton, game.buttons.backButton]);
     super.onDestroy();
   }
 
   @override
   void onMount() {
-    game.spawn([game.restartButton, game.backButton]);
+    game.spawn([game.buttons.restartButton, game.buttons.backButton]);
     super.onMount();
   }
 }

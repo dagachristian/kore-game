@@ -7,7 +7,6 @@ import 'package:flame/components/mixins/tapable.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
 
-import '../../../destructable.dart';
 import '../../../dankGame.dart';
 
 class JoyStick extends JoystickComponent with Destructable {

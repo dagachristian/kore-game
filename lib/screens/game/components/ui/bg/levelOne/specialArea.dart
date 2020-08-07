@@ -2,11 +2,11 @@ import 'dart:ui';
 
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
-import 'package:kore_game/screens/game/components/items/basicUltimate.dart';
 
 import './levelOne.dart';
 
 import '../../../sprites/enemies/rareEnemy.dart';
+import '../../../items/basicUltimate.dart';
 
 import '../../../../destructable.dart';
 
@@ -30,9 +30,9 @@ class SpecialArea extends PositionComponent with Destructable {
     level.game.spawn([specialWall1, specialWall2, specialWall3, specialWatchTower1]);
     level.children.addAll([specialWall1, specialWall2, specialWall3, specialWatchTower1]);
     for(int i=0;i<8;i++) {
-      level.game.enemyController.spawnEnemy(RareEnemy(level.game), level.game.r.nextInt((.2818 * level.width).toInt()).toDouble() + (.718 * level.width), level.game.r.nextInt((.1545 * level.height).toInt()).toDouble());
+      level.game.controllers.enemyController.spawnEnemy(RareEnemy(level.game), level.game.r.nextInt((.2818 * level.width).toInt()).toDouble() + (.718 * level.width), level.game.r.nextInt((.1545 * level.height).toInt()).toDouble());
     }
-    level.game.itemController.spawnItem(BasicUltimate(level.game), level.width * .9447, level.height * .0669);
+    level.game.controllers.itemController.spawnItem(BasicUltimate(level.game), level.width * .9447, level.height * .0669);
     super.onMount();
   }
 

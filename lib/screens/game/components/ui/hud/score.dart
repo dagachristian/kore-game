@@ -3,8 +3,6 @@ import 'dart:ui';
 import 'package:flame/components/component.dart';
 import 'package:flutter/painting.dart';
 
-import '../../../destructable.dart';
-
 import '../../../dankGame.dart';
 
 class ScoreDisplay extends Component with Destructable {

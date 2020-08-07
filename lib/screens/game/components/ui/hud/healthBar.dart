@@ -2,7 +2,6 @@ import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
 
 import '../../../dankGame.dart';
-import '../../../destructable.dart';
 
 class HealthBar extends SpriteComponent with Destructable {
   DankGame game;

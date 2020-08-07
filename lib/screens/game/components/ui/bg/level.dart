@@ -6,7 +6,6 @@ import '../../items/item.dart';
 import '../../sprites/enemies/enemy.dart';
 
 import '../../../dankGame.dart';
-import '../../../destructable.dart';
 
 abstract class Level extends SpriteComponent with Destructable {
   final DankGame game;
@@ -24,22 +23,22 @@ abstract class Level extends SpriteComponent with Destructable {
     x = 0;
     y = 0;
     children = [];
-    game.enemyController.killAll();
-    game.itemController.destroyAll();
+    game.controllers.enemyController.killAll();
+    game.controllers.itemController.destroyAll();
     start();
   }
 
   void levelFail() {
-    game.spawn([game.gameOverView]);
+    game.spawn([game.views.gameOverView]);
   }
 
   void levelPass() {
     Future.delayed(Duration(seconds: 3)).then((_) {
       game.player.died();
-      game.enemyController.killAll();
+      game.controllers.enemyController.killAll();
       game.lvl.removeAll();
-      game.remove([game.pauseButton, game.homeButton, game.gameOverView, game.lvl]);
-      game.homeView.loadView();
+      game.remove([game.buttons.pauseButton, game.buttons.homeButton, game.views.gameOverView, game.lvl]);
+      game.views.homeView.loadView();
     });
   }
 

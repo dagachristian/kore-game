@@ -10,7 +10,6 @@ import './enemyAnimation.dart';
 import '../mob.dart';
 
 import '../../../dankGame.dart';
-import '../../../destructable.dart';
 
 abstract class Enemy extends SpriteComponent with Destructable implements Mob {
   DankGame game;

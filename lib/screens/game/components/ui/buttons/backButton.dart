@@ -5,7 +5,6 @@ import 'package:flame/components/mixins/tapable.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
 
-import '../../../destructable.dart';
 import '../../../dankGame.dart';
 
 class BackButton extends SpriteComponent with Tapable, Destructable {
@@ -23,9 +22,9 @@ class BackButton extends SpriteComponent with Tapable, Destructable {
 
   @override
   void onTapDown(TapDownDetails details) {
-    game.enemyController.killAll();
+    game.controllers.enemyController.killAll();
     game.lvl.removeAll();
-    game.remove([game.gameOverView, game.lvl]);
-    game.homeView.loadView();
+    game.remove([game.views.gameOverView, game.lvl]);
+    game.views.homeView.loadView();
   }
 }

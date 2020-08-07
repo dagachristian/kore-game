@@ -6,9 +6,10 @@ import './crownArea.dart';
 
 import '../level.dart';
 
-import '../../../../dankGame.dart';
 import '../../../items/index.dart';
 import '../../../sprites/enemies/index.dart';
+
+import '../../../../dankGame.dart';
 
 class LevelOne extends Level {
   Courtyard courtyard;
@@ -23,8 +24,8 @@ class LevelOne extends Level {
 
   @override
   void start() {
-    game.enemyController.populateMapWithEnemies(game.lvl, 50);
-    game.itemController.populateMapWithItems(game.lvl, 10);
+    game.controllers.enemyController.populateMapWithEnemies(game.lvl, 50);
+    game.controllers.itemController.populateMapWithItems(game.lvl, 10);
 
     game.spawn([courtyard, specialArea, crownArea]);
 

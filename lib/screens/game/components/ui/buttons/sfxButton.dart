@@ -6,7 +6,6 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
 
 import '../../../dankGame.dart';
-import '../../../destructable.dart';
 
 import '../../../../../config/index.dart' show config;
 

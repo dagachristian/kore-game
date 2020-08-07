@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flame/animation.dart';
 import 'package:flame/components/animation_component.dart';
 import 'package:flame/sprite.dart';
-import 'package:kore_game/screens/game/destructable.dart';
 
 import './item.dart';
 

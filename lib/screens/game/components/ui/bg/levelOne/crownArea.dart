@@ -2,11 +2,11 @@ import 'dart:ui';
 
 import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
-import 'package:kore_game/screens/game/components/items/crown.dart';
 
 import './levelOne.dart';
 
 import '../../../sprites/enemies/basicEnemy.dart';
+import '../../../items/crown.dart';
 
 import '../../../../destructable.dart';
 
@@ -28,9 +28,9 @@ class CrownArea extends PositionComponent with Destructable {
     level.game.spawn([crownWall1, crownWall2, crownWatchTower1]);
     level.children.addAll([crownWall1, crownWall2, crownWatchTower1]);
     for(int i=0;i<12;i++) {
-      level.game.enemyController.spawnEnemy(BasicEnemy(level.game), level.game.r.nextInt((.1818 * level.width).toInt()).toDouble(), level.game.r.nextInt((.2273 * level.height).toInt()).toDouble() + (.7727 * level.height));
+      level.game.controllers.enemyController.spawnEnemy(BasicEnemy(level.game), level.game.r.nextInt((.1818 * level.width).toInt()).toDouble(), level.game.r.nextInt((.2273 * level.height).toInt()).toDouble() + (.7727 * level.height));
     }
-    level.game.itemController.spawnItem(Crown(level.game), level.width * .0509, level.height * .9545);
+    level.game.controllers.itemController.spawnItem(Crown(level.game), level.width * .0509, level.height * .9545);
     super.onMount();
   }
 
@@ -70,7 +70,7 @@ class CrownWall2 extends SpriteComponent with Destructable {
   @override
   void resize(Size size) {
     this.x = level.width * .182;
-    this.y = level.height * .845;
+    this.y = level.height * .84;
 
     super.resize(size);
   }
