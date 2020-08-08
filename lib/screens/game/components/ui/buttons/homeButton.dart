@@ -25,8 +25,8 @@ class HomeButton extends SpriteComponent with Tapable, Destructable {
     game.paused = false;
     game.player.died();
     game.controllers.enemyController.killAll();
-    game.lvl.removeAll();
-    game.remove([game.buttons.pauseButton, game.buttons.homeButton, game.views.gameOverView, game.lvl]);
-    game.views.homeView.loadView();
+    game.lvls.currentLvl.removeAll();
+    game.remove([game.buttons.pauseButton, game.buttons.homeButton, game.views.gameOverView, game.lvls.currentLvl]);
+    game.spawn([game.views.homeView]);
   }
 }

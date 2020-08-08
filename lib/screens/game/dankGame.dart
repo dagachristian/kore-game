@@ -16,6 +16,7 @@ import './controllers/index.dart';
 import '../../config/index.dart' show config;
 
 export './destructable.dart';
+export './ezSpriteComponent.dart';
 
 class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponents {
   Random r;
@@ -24,22 +25,20 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   bool bgmmuted;
   Barrier barrier;
 
-  BackGround bg;
-  Level lvl;
+  Levels lvls;
 
   Size screenSize;
   double tileSize;
+
+  int score;
+  int currentLevel;
   
   Player player;
-  int score;
-
   Controllers controllers;
-
   Views views;
-
   Huds huds;
-
   Buttons buttons;
+  Decorations decorations;
 
   DankGame() {
     initialize();
@@ -49,7 +48,7 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     r = Random();
     paused = false;
     score = 0;
-    
+
     if (!config.sharedPrefs.containsKey('sfxmuted')) await config.sharedPrefs.setBool('sfxmuted', false);
     sfxmuted = config.sharedPrefs.getBool('sfxmuted');
     if (!config.sharedPrefs.containsKey('bgmmuted')) await config.sharedPrefs.setBool('bgmmuted', false);
@@ -60,17 +59,12 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
     barrier = Barrier();
 
     player = Player(this);
-    
     views = Views(this);
-
     huds = Huds(this);
-
+    lvls = Levels(this);
     buttons = Buttons(this);
-    
     controllers = Controllers(this);
-
-    bg = BackGround(this);
-    lvl = LevelOne(this);
+    decorations = Decorations(this);
 
     huds.joyStick.addObserver(player);
     if (!bgmmuted) Flame.bgm.play('bgm/background_music.mp3', volume: 0.2);
@@ -78,7 +72,7 @@ class DankGame extends BaseGame with MultiTouchDragDetector, HasTapableComponent
   }
 
   void initSprites() {
-    views.homeView.loadView();
+    spawn([views.homeView]);
   }
 
   void spawn(List<Destructable> cs) {

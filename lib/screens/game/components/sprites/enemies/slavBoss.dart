@@ -1,3 +1,4 @@
+import 'package:flame/bgm.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 
@@ -36,15 +37,16 @@ class SlavBoss extends Enemy with Destructable {
 
   SlavBoss(DankGame game) : super(
     game: game,
-    width: 200, 
-    height: 400, 
+    width: 220, 
+    height: 440, 
     sprite: Sprite('sprites/enemies/slav_boss.png'), 
     speed: 100.0, 
     maxHealth: 500.0, 
-    damage: 100.0,
-    range: 150.0, 
+    damage: 110.0,
+    range: 165.0, 
     attackSpeed: .2,
     aggroRange: game.size.height + game.player.height,
+    drop: () => null,
     attackAnim: [],
     deathAnim: [],
     attackSound: '',
@@ -125,18 +127,20 @@ class SlavBossEvil extends Enemy with Destructable {
   int maxSpawnEnemies = 10;
   int spawnedEnemies;
 
+  Bgm bgm;
+
   SlavBossEvil(DankGame game) : super(
     game: game,
-    width: 200, 
-    height: 400, 
+    width: 220, 
+    height: 440, 
     sprite: Sprite('sprites/enemies/slav_boss_evil.png'), 
     speed: 120.0, 
     maxHealth: 600.0, 
     damage: 120.0,
-    range: 150.0, 
-    attackSpeed: .2,
+    range: 165.0, 
+    attackSpeed: .3,
     aggroRange: game.size.height + game.player.height,
-    drop: () => game.lvl.levelPass(),
+    drop: () => game.lvls.currentLvl.levelPass(),
     attackAnim: [],
     deathAnim: <Sprite>[
       Sprite('sprites/enemies/slav_boss_evil_death_01.png'),
@@ -151,6 +155,7 @@ class SlavBossEvil extends Enemy with Destructable {
     deathSound: 'sfx/enemies/slav_boss_death.mp3'
   ) {
     spawnedEnemies = 0;
+    bgm = Bgm();
   }
 
   @override
@@ -184,5 +189,21 @@ class SlavBossEvil extends Enemy with Destructable {
         });
       }
     } 
+  }
+
+  @override
+  void onMount() {
+    if (!game.bgmmuted) {
+      bgm.play('sfx/enemies/slav_boss_evil_bg.mp3', volume: 0.5);
+    }
+    super.onMount();
+  }
+
+  @override
+  void onDestroy() {
+    if (!game.bgmmuted) {
+      bgm.stop();
+    }
+    super.onDestroy();
   }
 }

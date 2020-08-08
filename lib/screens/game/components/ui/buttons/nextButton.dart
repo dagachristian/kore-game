@@ -7,10 +7,10 @@ import 'package:flutter/gestures.dart';
 
 import '../../../dankGame.dart';
 
-class RestartButton extends SpriteComponent with Tapable, Destructable {
+class NextButton extends SpriteComponent with Tapable, Destructable {
   final DankGame game;
 
-  RestartButton(this.game) : super.fromSprite(game.tileSize * 3, game.tileSize * 3, Sprite('ui/restart.png'));
+  NextButton(this.game) : super.fromSprite(game.tileSize * 3, game.tileSize * 3, Sprite('ui/next.png'));
 
   @override
   void resize(Size size) {
@@ -22,7 +22,10 @@ class RestartButton extends SpriteComponent with Tapable, Destructable {
 
   @override
   void onTapDown(TapDownDetails details) {
+    game.remove([game.lvls.currentLvl]);
+    game.lvls.nextLvl();
+    game.spawn([game.lvls.currentLvl]);
+    game.remove([game.views.nextLevelView]);
     game.lvls.currentLvl.reset();
-    game.remove([game.views.gameOverView]);
   }
 }

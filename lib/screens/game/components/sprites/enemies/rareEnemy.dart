@@ -12,7 +12,7 @@ class RareEnemy extends Enemy with Destructable {
     sprite: Sprite('sprites/enemies/rare_enemy.png'),
     speed: 200.0,
     maxHealth: 50.0,
-    damage: 50.0,
+    damage: 40.0,
     range: 80.0,
     attackSpeed: 0.5,
     aggroRange: game.size.width,

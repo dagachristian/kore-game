@@ -21,7 +21,7 @@ class ItemController {
       item.x = game.r.nextInt(lvl.width.toInt()).toDouble();
       item.y = game.r.nextInt(lvl.height.toInt()).toDouble();
       items.add(item);
-      game.lvl.addChild(item);
+      game.lvls.currentLvl.addChild(item);
     }
     game.spawn(items);
   }
@@ -30,7 +30,7 @@ class ItemController {
     item.x = x;
     item.y = y;
     items.add(item);
-    game.lvl.addChild(item);
+    game.lvls.currentLvl.addChild(item);
     game.spawn([item]);
   }
 }

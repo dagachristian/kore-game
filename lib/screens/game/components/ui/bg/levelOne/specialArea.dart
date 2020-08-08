@@ -28,6 +28,7 @@ class SpecialArea extends PositionComponent with Destructable {
   @override
   void onMount() {
     level.game.spawn([specialWall1, specialWall2, specialWall3, specialWatchTower1]);
+    level.game.barrier.addBarriers([specialWall1, specialWall2, specialWall3, specialWatchTower1]);
     level.children.addAll([specialWall1, specialWall2, specialWall3, specialWatchTower1]);
     for(int i=0;i<8;i++) {
       level.game.controllers.enemyController.spawnEnemy(RareEnemy(level.game), level.game.r.nextInt((.2818 * level.width).toInt()).toDouble() + (.718 * level.width), level.game.r.nextInt((.1545 * level.height).toInt()).toDouble());

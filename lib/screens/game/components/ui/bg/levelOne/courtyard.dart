@@ -25,6 +25,7 @@ class Courtyard extends PositionComponent with Destructable {
   @override
   void onMount() {
     level.game.spawn([wall1, wall2, watchTower1, watchTower2]);
+    level.game.barrier.addBarriers([wall1, wall2, watchTower1, watchTower2]);
     level.children.addAll([wall1, wall2, watchTower1, watchTower2]);
     super.onMount();
   }
@@ -42,9 +43,7 @@ class Courtyard extends PositionComponent with Destructable {
 class Wall1 extends SpriteComponent with Destructable {
   final LevelOne level;
 
-  Wall1(this.level) : super.fromSprite(750, 50, Sprite('bg/wall.png')) {
-    level.game.barrier.addBarrier(this);
-  }
+  Wall1(this.level) : super.fromSprite(750, 50, Sprite('bg/wall.png'));
 
   @override
   void resize(Size size) {
@@ -58,9 +57,7 @@ class Wall1 extends SpriteComponent with Destructable {
 class Wall2 extends SpriteComponent with Destructable {
   final LevelOne level;
 
-  Wall2(this.level) : super.fromSprite(750, 50, Sprite('bg/wall.png')) {
-    level.game.barrier.addBarrier(this);
-  }
+  Wall2(this.level) : super.fromSprite(750, 50, Sprite('bg/wall.png'));
 
   @override
   void resize(Size size) {
@@ -74,9 +71,7 @@ class Wall2 extends SpriteComponent with Destructable {
 class WatchTower1 extends SpriteComponent with Destructable {
   final LevelOne level;
 
-  WatchTower1(this.level) : super.fromSprite(150, 150, Sprite('bg/watchtower.png')) {
-    level.game.barrier.addBarrier(this);
-  }
+  WatchTower1(this.level) : super.fromSprite(150, 150, Sprite('bg/watchtower.png'));
 
   @override
   void resize(Size size) {
@@ -90,9 +85,7 @@ class WatchTower1 extends SpriteComponent with Destructable {
 class WatchTower2 extends SpriteComponent with Destructable {
   final LevelOne level;
 
-  WatchTower2(this.level) : super.fromSprite(150, 150, Sprite('bg/watchtower.png')) {
-    level.game.barrier.addBarrier(this);
-  }
+  WatchTower2(this.level) : super.fromSprite(150, 150, Sprite('bg/watchtower.png'));
 
   @override
   void resize(Size size) {

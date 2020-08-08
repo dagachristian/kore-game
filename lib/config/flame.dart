@@ -13,13 +13,18 @@ class _Flame {
       'empty.png',
 
       'bg/background.jpg',
+
       'bg/level_01.jpg',
       'bg/watchtower.png',
       'bg/wall.png',
 
+      'bg/level_02.jpg',
+
       'branding/logo.png',
       'branding/spritesheet.png',
 
+      'ui/next.png',
+      'ui/passed.png',
       'ui/game_over.png',
       'ui/restart.png',
       'ui/start.png',
@@ -35,6 +40,11 @@ class _Flame {
       'ui/mutebgm.png',
       'ui/sfx.png',
       'ui/mutesfx.png',
+      'ui/levels.png',
+      'ui/level1.png',
+      'ui/level2.png',
+      'ui/level3.png',
+      'ui/lvl_select_bg.png',
 
       'items/basic_heal.png',
       'items/basic_strength.png',
@@ -134,7 +144,8 @@ class _Flame {
       'sfx/enemies/slav_boss_jump_attack.mp3',
       
       'sfx/enemies/slav_boss_evil_head_attack.mp3',
-      'sfx/enemies/slav_boss_evil_laser_attack.mp3'
+      'sfx/enemies/slav_boss_evil_laser_attack.mp3',
+      'sfx/enemies/slav_boss_evil_bg.mp3',
     ]);
 
     Flame.bgm.initialize();

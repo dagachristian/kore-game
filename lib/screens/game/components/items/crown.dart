@@ -29,19 +29,29 @@ class Crown extends Item {
   void onEquip() {
     game.player.maxHealth *= 1.25;
     game.spawn([anim]);
-    equipped = true;
+    super.onEquip();
   }
 
   @override
   void onDequip() {
     game.player.maxHealth /= 1.25;
     game.remove([anim]);
-    equipped = false;
+    super.onDequip();
   }
 
   @override
   void render(Canvas c) {
     if (!equipped) super.render(c);
+  }
+
+  @override
+  void onDestroy() {
+    game.remove([anim]);
+  }
+
+  @override
+  void onMount() {
+    if (equipped) game.spawn([anim]);
   }
 }
 

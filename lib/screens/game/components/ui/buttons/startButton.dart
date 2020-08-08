@@ -22,8 +22,8 @@ class StartButton extends SpriteComponent with Tapable, Destructable {
 
   @override
   void onTapDown(TapDownDetails details) {
-    game.spawn([game.lvl]);
+    game.spawn([game.lvls.currentLvl]);
     game.remove([game.views.homeView]);
-    game.lvl.reset();
+    game.lvls.currentLvl.reset();
   }
 }

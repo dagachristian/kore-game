@@ -1,6 +1,3 @@
-export './enemyController.dart';
-export './itemController.dart';
-
 import './enemyController.dart';
 import './itemController.dart';
 

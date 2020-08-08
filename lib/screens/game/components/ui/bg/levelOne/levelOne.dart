@@ -24,8 +24,8 @@ class LevelOne extends Level {
 
   @override
   void start() {
-    game.controllers.enemyController.populateMapWithEnemies(game.lvl, 50);
-    game.controllers.itemController.populateMapWithItems(game.lvl, 10);
+    game.controllers.enemyController.populateMapWithEnemies(game.lvls.currentLvl, 50);
+    game.controllers.itemController.populateMapWithItems(game.lvls.currentLvl, 10);
 
     game.spawn([courtyard, specialArea, crownArea]);
 
@@ -43,7 +43,7 @@ class LevelOne extends Level {
 
   @override
   Enemy getBoss() {
-    Enemy boss = SlavBoss(game);
+    Enemy boss = SlavEnemy(game);
     boss.x = width * 19/20;
     boss.y = height * 14/20;
     return boss;

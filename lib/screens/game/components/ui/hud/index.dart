@@ -1,8 +1,5 @@
 export './equipment.dart';
 export './healthBar.dart';
-export './playerControls.dart';
-export './score.dart';
-
 import './equipment.dart';
 import './healthBar.dart';
 import './playerControls.dart';

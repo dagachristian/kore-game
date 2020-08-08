@@ -1,8 +1,9 @@
 import 'dart:math';
 
+import 'package:kore_game/screens/game/components/ui/bg/level.dart';
+
 import '../dankGame.dart';
 import '../components/sprites/enemies/index.dart';
-import '../components/ui/index.dart';
 
 class EnemyController {
   Random r;
@@ -91,7 +92,7 @@ class EnemyController {
         enemy.y -= game.size.height;
         break;
     }
-    game.lvl.addChild(enemy);
+    game.lvls.currentLvl.addChild(enemy);
     enemies.add(enemy);
     game.spawn([enemy]);
   }
@@ -102,11 +103,11 @@ class EnemyController {
       enemy.x = r.nextInt(lvl.width.toInt()).toDouble();
       enemy.y = r.nextInt(lvl.height.toInt()).toDouble();
       enemies.add(enemy);
-      game.lvl.addChild(enemy);
+      game.lvls.currentLvl.addChild(enemy);
     }
     Enemy boss = lvl.getBoss();
     enemies.add(boss);
-    game.lvl.addChild(boss);
+    game.lvls.currentLvl.addChild(boss);
     game.spawn(enemies);
   }
 
@@ -114,7 +115,7 @@ class EnemyController {
     enemy.x = x;
     enemy.y = y;
     enemies.add(enemy);
-    game.lvl.addChild(enemy);
+    game.lvls.currentLvl.addChild(enemy);
     game.spawn([enemy]);
   }
 }

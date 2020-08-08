@@ -3,18 +3,22 @@ import 'package:flame/components/component.dart';
 import './components/sprites/mob.dart';
 
 class Barrier {
-  List<SpriteComponent> barriers;
+  List<PositionComponent> barriers;
 
   Barrier() {
     barriers = [];
   }
 
-  void addBarrier(SpriteComponent c) {
-    barriers.add(c);
+  void addBarrier(PositionComponent pc) {
+    barriers.add(pc);
   }
 
-  void removeBarrier(SpriteComponent c) {
-    barriers.remove(c);
+  void addBarriers(List<PositionComponent> pcs) {
+    barriers.addAll(pcs);
+  }
+
+  void removeBarrier(PositionComponent pc) {
+    barriers.remove(pc);
   }
 
   void removeBarriers() {
@@ -23,8 +27,8 @@ class Barrier {
 
   bool collide(Mob mob, double x, double y) {
     bool collides = false;
-    barriers.forEach((SpriteComponent c) {
-      if (mob.x + x < c.x + c.width && mob.x + x + mob.width > c.x && mob.y + y < c.y + c.height && mob.y + y + mob.height > c.y) {
+    barriers.forEach((PositionComponent pc) {
+      if (mob.x + x < pc.x + pc.width && mob.x + x + mob.width > pc.x && mob.y + y < pc.y + pc.height && mob.y + y + mob.height > pc.y) {
         collides = true;
       }
     });

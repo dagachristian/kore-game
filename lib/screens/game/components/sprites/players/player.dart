@@ -23,7 +23,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
   @override
   double range = 100.0;
   @override
-  double speed = 250.0; //225
+  double speed = 250.0; //250
   @override
   double maxHealth = 100.0;
   @override
@@ -74,6 +74,7 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
   }
 
   void respawn() {
+    if (isDead = false) game.remove([game.views.playingView]);
     isDead = false;
     health = maxHealth;
     game.spawn([game.views.playingView]);
@@ -83,10 +84,12 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
   void died() {
     isDead = true;
     health = maxHealth;
+    game.huds.itemBar.destroyItem();
+    game.huds.helmetSlot.destroyItem();
     if (!game.sfxmuted) Flame.audio.play(deathSound);
     game.add(PlayerAnimation(game.player, deathAnim));
     game.remove([game.views.playingView]);
-    game.lvl.levelFail();
+    game.lvls.currentLvl.levelFail();
   }
 
   void move() {
@@ -95,13 +98,13 @@ class Player extends SpriteComponent with Destructable implements JoystickListen
       double centerX = game.size.width - width;
 
       // blaaaaaarrggg maths not good
-      if (game.lvl.y - speed * sin(direction) / 100.0 <= 0 && game.lvl.y - speed * sin(direction) / 100.0 >= -game.lvl.height + game.size.height && (y > centerY / 2 - 5) && (y < centerY / 2 + 5)) {
-        game.lvl.moveY(-speed * sin(direction) / 100.0);
+      if (game.lvls.currentLvl.y - speed * sin(direction) / 100.0 <= 0 && game.lvls.currentLvl.y - speed * sin(direction) / 100.0 >= -game.lvls.currentLvl.height + game.size.height && (y > centerY / 2 - 5) && (y < centerY / 2 + 5)) {
+        game.lvls.currentLvl.moveY(-speed * sin(direction) / 100.0);
       } else if (y + intensity * speed * sin(direction) / 100.0 >= 0 && y + intensity * speed * sin(direction) / 100.0 <= game.size.height - height) {
         y += intensity * speed * sin(direction) / 100.0;
       }
-      if (game.lvl.x - speed * cos(direction) / 100.0 <= 0 && game.lvl.x - speed * cos(direction) / 100.0 >= -game.lvl.width + game.size.width && (x > centerX / 2 - 5) && (x < centerX / 2 + 5)) {
-        game.lvl.moveX(-speed * cos(direction) / 100.0);
+      if (game.lvls.currentLvl.x - speed * cos(direction) / 100.0 <= 0 && game.lvls.currentLvl.x - speed * cos(direction) / 100.0 >= -game.lvls.currentLvl.width + game.size.width && (x > centerX / 2 - 5) && (x < centerX / 2 + 5)) {
+        game.lvls.currentLvl.moveX(-speed * cos(direction) / 100.0);
       } else if (x + intensity * speed * cos(direction) / 100.0 >= 0 && x + intensity * speed * cos(direction) / 100.0 <= game.size.width - width) {
         x += intensity * speed * cos(direction) / 100.0;
       }

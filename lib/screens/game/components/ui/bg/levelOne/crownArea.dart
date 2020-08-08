@@ -26,6 +26,7 @@ class CrownArea extends PositionComponent with Destructable {
   @override
   void onMount() {
     level.game.spawn([crownWall1, crownWall2, crownWatchTower1]);
+    level.game.barrier.addBarriers([crownWall1, crownWall2, crownWatchTower1]);
     level.children.addAll([crownWall1, crownWall2, crownWatchTower1]);
     for(int i=0;i<12;i++) {
       level.game.controllers.enemyController.spawnEnemy(BasicEnemy(level.game), level.game.r.nextInt((.1818 * level.width).toInt()).toDouble(), level.game.r.nextInt((.2273 * level.height).toInt()).toDouble() + (.7727 * level.height));

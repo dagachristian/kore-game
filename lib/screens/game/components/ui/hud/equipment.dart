@@ -34,7 +34,7 @@ abstract class Equipment extends SpriteComponent with Tapable, Destructable {
 
   void equipItem(Item item) {
     dequipItem();
-    game.lvl.removeChild(item);
+    game.lvls.currentLvl.removeChild(item);
     currentItem = item;
     currentItemWidth = item.width;
     currentItemHeight = item.height;
@@ -51,23 +51,33 @@ abstract class Equipment extends SpriteComponent with Tapable, Destructable {
       currentItem.x = game.player.x;
       currentItem.width = currentItemWidth;
       currentItem.height = currentItemHeight;
-      game.lvl.addChild(currentItem);
+      game.lvls.currentLvl.addChild(currentItem);
       currentItem.onDequip();
     }
   }
 
   void destroyItem() {
-    dequipItem();
-    game.remove([currentItem]);
-    currentItem = null;
+    if (currentItem != null) {
+      dequipItem();
+      game.remove([currentItem]);
+      currentItem = null;
+    }
   }
 
   @override
   void onDestroy() {
     if (currentItem != null) {
-      destroyItem();
+      game.remove([currentItem]);
     }
     super.onDestroy();
+  }
+
+  @override
+  void onMount() {
+    if (currentItem != null) {
+      game.spawn([currentItem]);
+    }
+    super.onMount();
   }
 
   @override
